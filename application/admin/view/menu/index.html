@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    {include file="public/head" /}
+</head>
+<body>
+{include file="public/nav" /}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <table id="table_data" class="layui-table" lay-filter="table_data"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/html" id="toolbar">
+    <div class = "layui-btn-container" >
+        {if checkAuth('Menu/add')}
+        <button class = "layui-btn layui-btn-sm layui-btn-normal" lay-event ="add" title="菜单添加" data-data='{"type":2,"title":"菜单添加","content":"{:url(\"add\")}" }' >
+            <i class="layui-icon layui-icon-add-circle"></i> 添加
+        </button>
+        {/if}
+        {if checkAuth('Menu/delBatch')}
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del_batch" title="批量失效" data-data='{"url":"{:url(\"delBatch\")}","title":"批量失效" }' >
+            <i class="layui-icon layui-icon-delete"></i> 批量失效
+        </button >
+        {/if}
+    </div >
+</script>
+<script type="text/html" id="iconTpl">
+    <i class="{{ d.icon }}"></i>
+</script>
+<script type="text/html" id="isShowTpl">
+    <input type="checkbox" lay-skin="switch" lay-filter="is_show" data-data='{"id":{{ d.id }},"url":"{:url(\"show\")}" }' lay-text="显示|隐藏" {{ d.is_show!==0?'checked':'' }} >
+</script>
+<script type="text/html" id="statusTpl">
+    <input type="checkbox" lay-skin="switch" lay-filter="status" data-data='{"id":{{ d.id }},"url":"{:url(\"status\")}" }' lay-text="正常|失效" {{ d.status!==0?'checked':'' }} >
+</script>
+<script type="text/html" id="sortTpl">
+    <input type="text" class="layui-input table-sort" data-data='{"url":"{:url(\"sort\")}","id":"{{ d.id }}","oldSort":"{{ d.sort }}"}' value="{{ d.sort }}" style="text-align: center;max-width: 80px;padding-left: 0;height: 28px;" >
+</script>
+<script type="text/html" id="actionTpl">
+    <div class="layui-btn-group">
+        {if checkAuth('Menu/add')}
+        <button type="button" class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add" title="菜单添加" data-data='{"type":2,"title":"菜单添加","content":"{:url(\"add\")}?menu_id={{ d.id }}"}'>
+            <i class="layui-icon layui-icon-add-circle"></i>
+        </button>
+        {/if}
+        {if checkAuth('Menu/edit')}
+        <button type="button" class="layui-btn layui-btn-xs" lay-event="edit" title="菜单编辑" data-data='{"type":2,"title":"菜单编辑","content":"{:url(\"edit\")}?id={{ d.id }}"}'>
+            <i class="layui-icon layui-icon-edit"></i>
+        </button>
+        {/if}
+    </div>
+</script>
+{include file="public/footer" /}
+<script type="text/javascript" src="__ADMIN__/js/table_data.js?v={$Think.config.system.version}"></script>
+<script type="text/javascript">
+    var table_args={
+        page:false,
+        cols:[[
+            {checkbox: true,align:'center'},
+            {field:'name',title: '名称',templet:function(d){return '|--'.repeat(d.level)+d.name;}},
+            {field:'icon',title: '图标',align:'center',templet:"#iconTpl"},
+            {field:'is_show',title: '菜单栏显示',align:'center',hide:isMobile(),templet:"#isShowTpl"},
+            {field:'code',title:'控制器/方法',hide:isMobile()},
+            {field:'status',title:'是否有效',align:'center',hide:isMobile(),templet:"#statusTpl"},
+            {field:'sort',title:'排序',align:'center',hide:isMobile(),templet:"#sortTpl"},
+            {title:'操作',fixed:'right',align:'center',templet:"#actionTpl"},
+        ]]
+    };
+    
+    //监听显示开关事件
+    layui.use(['jquery','form'], function(){
+        $ = layui.jquery;
+        let form = layui.form;
+        //监听是否显示选择开关
+        form.on('switch(is_show)', function(data){
+            let obj=data.elem;
+            let _data=$(obj).data("data");
+            let url=_data.url;
+            let requestData={id:_data.id,is_show:data.elem.checked?1:0};
+            request({
+                url: url,
+                data: requestData,
+                errorCallback:function (res) {
+                    res.msg=res.msg||'更改显示失败';
+                    errorAlert(res.msg,function (index, layero){
+                        $(obj).attr('checked',!data.elem.checked);
+                        form.render();
+                        layer.close(index);
+                    });
+                }
+            });
+        });
+    });
+</script>
+</html>

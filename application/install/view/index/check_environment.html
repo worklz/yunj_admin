@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/head" /}
+</head>
+<body>
+{include file="public/header" /}
+<div class="install-box">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>运行环境检测</legend>
+    </fieldset>
+
+    {foreach $data as $key=>$vo }
+    <table class="layui-table" lay-skin="line">
+        <thead>
+        <tr>
+            {foreach $vo.cols as $col }
+            <th>{$col}</th>
+            {/foreach}
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $vo.items as $k=>$item }
+        <tr {if !$item.pass}class="no"{/if}>
+            <td>{$item.title}</td>
+            <td>{$item.demand}</td>
+            <td>{$item.current}</td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    {/foreach}
+    <div class="step-btns">
+        <a href="{:url('index')}" class="layui-btn layui-btn-primary layui-btn-big fl">返回上一步</a>
+        <a href="javascript:void(0);" class="layui-btn layui-btn-big layui-btn-normal fr enter-system-config" data-data='{"url":"{:url(\"systemConfig\")}","install_check_pass":"{$Think.session.install_check_pass}"}'>进行下一步</a>
+    </div>
+</div>
+{include file="public/copyright" /}
+</body>
+{include file="public/footer" /}
+</html>

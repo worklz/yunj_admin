@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    {include file="public/head" /}
+</head>
+<body>
+<div class="layui-fluid">
+    <form class="layui-form" data-url="{:url('edit')}" data-method="post">
+        <input type="hidden" name="id" value="{$info.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>配置组</label>
+            <div class="layui-input-inline">
+                <select name="group_id" lay-verify="required">
+                    {volist name="groups" id="vo"}
+                    <option value="{$vo.id}" {if $info.group_id == $vo.id}selected{/if}>{$vo.name}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" value="{$info.name}" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>代码</label>
+            <div class="layui-input-inline">
+                <input type="text" name="code" value="{$info.code}" lay-verify="code" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">字母/数字/下划线组合</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>配置类型</label>
+            <div class="layui-input-inline">
+                <select name="type_id" lay-verify="required">
+                    {volist name="types" id="vo"}
+                    <option value="{$vo.id}" {if $info.type_id == $vo.id}selected{/if}>[{$vo.type}]{$vo.name}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">配置值</label>
+            <div class="layui-input-inline">
+                <textarea name="value" class="layui-textarea" rows="5">{$info.value}</textarea>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+               配置类型为多选框、数组时。格式如下：<br>健值1,键值2,键值3
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">供选项</label>
+            <div class="layui-input-inline">
+                <textarea name="options" class="layui-textarea" rows="5">{$info.options}</textarea>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                适用于配置类型为单选按钮、开关、多选框、下拉选框。格式如下：<br>健值:健名<br>1:北京<br>2:上海
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">提示语</label>
+            <div class="layui-input-inline">
+                <textarea name="tips" class="layui-textarea" rows="5">{$info.tips}</textarea>
+            </div>
+            <div class="layui-form-mid layui-word-aux"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="status" value="1" title="正常" {if $info.status == 1}checked{/if} >
+                <input type="radio" name="status" value="0" title="禁用" {if $info.status == 0}checked{/if} >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="submit_btn">提交</button>
+            <a href="javascript:parent.layui.layer.closeAll();" class="layui-btn layui-btn-sm layui-btn-primary">取消</a>
+        </div>
+    </form>
+</div>
+</body>
+{include file="public/footer" /}
+<script type="text/javascript">
+    layui.use(['jquery','form'],function () {
+        $ = layui.jquery;
+        let form = layui.form;
+        form.verify({
+            code: function(value){
+                if(!value) return '代码不能为空';
+                let reg=/^[a-zA-Z][a-zA-Z0-9_]*$/;
+                if(!reg.test(value)) return '代码格式错误';
+            }
+        });
+    });
+</script>
+</html>

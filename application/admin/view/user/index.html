@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    {include file="public/head" /}
+</head>
+<body>
+{include file="public/nav" /}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <form class="layui-form layui-col-space5" id="search_form">
+                        <div class="layui-inline show-xs-block">
+                            <select name="status">
+                                <option value="all">所有状态</option>
+                                <option value="1">正常</option>
+                                <option value="0">已失效</option>
+                            </select>
+                        </div>
+                        <div class="layui-inline show-xs-block">
+                            <select name="role_id">
+                                <option value="all">所有角色</option>
+                                {volist name="roles" id="vo"}
+                                <option value="{$vo.id}">{$vo.name}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                        <div class="layui-inline show-xs-block">
+                            <input type="text" name="keywords" placeholder="账户/昵称/邮箱/手机" autocomplete="off" class="layui-input"></div>
+                        <div class="layui-inline show-xs-block">
+                            <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="submit"><i class="layui-icon">&#xe615;</i> 搜索</button>
+                            <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe669;</i> 重置</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-card-body ">
+                    <table id="table_data" class="layui-table" lay-filter="table_data"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/html" id="toolbar">
+    <div class = "layui-btn-container" >
+        {if checkAuth('User/add')}
+        <button class = "layui-btn layui-btn-sm layui-btn-normal" lay-event = "add" title="用户添加" data-data='{"type":2,"title":"用户添加","content":"{:url(\'add\')}" }' >
+            <i class="layui-icon layui-icon-add-circle"></i> 添加
+        </button>
+        {/if}
+        {if checkAuth('User/delBatch')}
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del_batch" title="批量禁用" data-data='{"url":"{:url(\'delBatch\')}","title":"批量禁用" }' >
+            <i class="layui-icon layui-icon-delete"></i> 批量禁用
+        </button >
+        {/if}
+    </div >
+</script>
+<script type="text/html" id="statusTpl">
+    <input type="checkbox" lay-skin="switch" lay-filter="status" data-data='{"id":{{ d.id }},"url":"{:url(\'status\')}" }' lay-text="正常|禁用" {{ d.status!==0?'checked':'' }} {{ d.id===1?'disabled':'' }} >
+</script>
+<script type="text/html" id="actionTpl">
+    <div class="layui-btn-group">
+        {if checkAuth('User/edit')}
+        <button type="button" class="layui-btn layui-btn-xs" lay-event="edit" title="用户编辑" data-data='{"type":2,"title":"用户编辑","content":"{:url(\'edit\')}?id={{ d.id }}"}'>
+            <i class="layui-icon layui-icon-edit"></i>
+        </button>
+        {/if}
+    </div>
+</script>
+{include file="public/footer" /}
+<script type="text/javascript" src="__ADMIN__/js/table_data.js?v={$Think.config.system.version}"></script>
+<script type="text/javascript">
+    var table_args={
+        page:true,
+        defaultToolbar: ['filter',{title:'导出',layEvent: 'export',icon: 'layui-icon-export'}, 'print'],
+        export_data:{"url":"{:url('export')}","title":"用户"},
+        cols:[[
+            {checkbox: true,align:'center'},
+            {field:'nickname',title: '昵称'},
+            {field:'username',title: '账户',hide:isMobile()},
+            {field:'role_name',title: '角色',templet:function(d){return d.id===1?'超级管理员':d.role_name;}},
+            {field:'email',title:'邮箱',hide:isMobile()},
+            {field:'mobile',title:'手机',hide:isMobile()},
+            {field:'status',title:'是否禁用',align:'center',hide:isMobile(),templet:"#statusTpl"},
+            {fixed:'right',title:'操作',align:'center',templet:"#actionTpl"},
+        ]]
+    };
+</script>
+</html>

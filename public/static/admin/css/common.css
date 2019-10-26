@@ -1,0 +1,119 @@
+
+/*屏宽<=768*/
+@media screen and (max-width: 768px){
+    /*查询搜索框*/
+    .show-xs-block{
+        display: block;
+    }
+    #search_form .show-xs-block{
+        display: none;
+    }
+    #search_form .show-xs-block:first-child,#search_form .show-xs-block:last-child{
+        display: block;
+    }
+    /*表单*/
+    .layui-form-item .layui-form-checkbox[lay-skin=primary]{
+        margin-top: 5px;
+    }
+}
+/*屏宽>=769*/
+@media screen and (min-width: 769px){
+    .layui-form-label{
+        width: 12%;
+    }
+    .layui-input-inline{
+        width: 45% !important;
+    }
+    .layui-word-aux{
+        width: 30%;
+    }
+    .layui-form-item .layui-form-checkbox[lay-skin=primary]{
+        margin-top: 2px;
+    }
+}
+.search-open-retract{
+    border: 0;
+    color: #1890ff;
+}
+.search-open-retract:hover{
+    color: #40a9ff;
+}
+/*表单*/
+.layui-form-label{
+    padding: 5px 15px;
+}
+.layui-form-mid{
+    padding: 5px 0!important;
+}
+.layui-form-radio{
+    margin-top: 1px;
+}
+/*unicode图标和输入框组件，菜单添加/编辑*/
+.input-icon-inline{
+    display: flex !important;
+}
+.input-icon-inline .layui-input{
+    padding-right: 10px;
+}
+.input-icon-inline .layui-icon{
+    width: 40px;
+    height: 28px;
+    font-size: 18px !important;
+    background-color: #fff;
+    border: 1px solid #D2D2D2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.input-icon-inline .layui-icon:first-child{
+    border-radius: 2px 0 0 2px;
+    border-right: 0;
+}
+.input-icon-inline .layui-icon:last-child{
+    border-radius: 0 2px 2px 0;
+    border-left: 0;
+}
+/*按钮样式*/
+.layui-btn .layui-icon{
+    margin-right: 0;
+}
+/*上传图片*/
+.upload-img-container{
+    height: 30px;
+    width: 30px;
+    border-radius: 2px;
+    cursor: pointer;
+    overflow:hidden;
+    display: inline-table;
+    position: relative;
+}
+.upload-img-container img{
+    height: 100%;
+    width: 100%;
+}
+.upload-img-container:hover .layui-icon-close-fill{
+    display: flex;
+}
+.upload-img-container .layui-icon-close-fill{
+    height: 16px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    position: absolute;
+    z-index: 999;
+    top: -1px;
+    right: -2px;
+}
+ .upload-img-container .layui-icon-close-fill:hover{
+    color: #FF5722;
+ }
+/*code*/
+code{
+    color: #5FB878;
+}
+/*表格*/
+.layui-table .table-img{
+    cursor: pointer;
+    height: 28px;
+}

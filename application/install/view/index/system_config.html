@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/head" /}
+</head>
+<body>
+{include file="public/header" /}
+<div class="install-box">
+    <form class="layui-form layui-form-pane" data-data='{"install_check_pass":"{$Think.session.install_check_pass}","db_install_url":"{:url(\"dbInstall\")}"}'>
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>第一步：数据库配置</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label class="layui-form-label">服务器地址</label>
+            <div class="layui-input-inline w200">
+                <input type="text" class="layui-input" name="hostname" lay-verify="required" value="127.0.0.1">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>数据库服务器地址，一般为127.0.0.1</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数据库端口</label>
+            <div class="layui-input-inline w200">
+                <input type="text" class="layui-input" name="hostport" lay-verify="required" value="3306">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>系统数据库端口，一般为3306</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数据库名称</label>
+            <div class="layui-input-inline w200">
+                <input type="text" class="layui-input" name="database" lay-verify="alpha_">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>系统数据库名,必须由字母/数字/下划线组合</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数据库账号</label>
+            <div class="layui-input-inline w200">
+                <input type="text" class="layui-input" name="username" lay-verify="required">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>连接数据库的用户名</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数据库密码</label>
+            <div class="layui-input-inline w200">
+                <input type="password" class="layui-input" name="password" lay-verify="required">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>连接数据库的密码</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数据库前缀</label>
+            <div class="layui-input-inline w200">
+                <input type="text" class="layui-input" name="prefix" lay-verify="required_" value="ss_">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>建议使用默认,末尾字符必须为 '_'</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">覆盖数据库</label>
+            <div class="layui-input-inline w200">
+                <input type="radio" name="cover" value="1" title="覆盖">
+                <input type="radio" name="cover" value="0" title="不覆盖" checked>
+            </div>
+            <div class="layui-form-mid layui-word-aux"></div>
+        </div>
+        <div class="layui-form-item">
+            <button type="button" class="layui-btn fl" style="margin-left:120px;" lay-submit lay-filter="dbInstall">测试数据库连接</button>
+        </div>
+    </form>
+    <form class="layui-form layui-form-pane" data-data='{"install_check_pass":"{$Think.session.install_check_pass}","now_install_url":"{:url(\"nowInstall\")}"}'>
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>第二步：管理账号设置</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label class="layui-form-label">管理员账号</label>
+            <div class="layui-input-inline w200">
+                <input type="text" class="layui-input" name="admin_username" lay-verify="length4">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>管理员账号最少4位</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">管理员密码</label>
+            <div class="layui-input-inline w200">
+                <input type="password" class="layui-input" name="admin_password" lay-verify="length6">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>保证密码最少6位</div>
+        </div>
+        <div class="step-btns">
+            <a href='{:url(\"checkEnvironment\")}' class="layui-btn layui-btn-primary layui-btn-big fl">返回上一步</a>
+            <button type="submit" class="layui-btn layui-btn-big layui-btn-normal fr" lay-submit lay-filter="nowInstall">立即执行安装</button>
+        </div>
+    </form>
+</div>
+{include file="public/copyright" /}
+</body>
+{include file="public/footer" /}
+</html>

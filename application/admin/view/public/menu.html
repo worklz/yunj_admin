@@ -1,0 +1,29 @@
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+            {foreach $menus as $menu }
+            {if $menu.pid == 0}
+            <li>
+                <a href="javascript:void(0);">
+                    <i class="{$menu.icon|raw} left-nav-li" lay-tips="{$menu.name}"></i>
+                    <cite>{$menu.name}</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    {foreach $menus as $sub_menu }
+                    {if ($sub_menu.pid == $menu.id)}
+                    <li>
+                        <a onclick="xadmin.add_tab('{$sub_menu.name}','{:url($sub_menu.code)}')">
+                            <i class="{$sub_menu.icon|raw}"></i>
+                            <cite>{$sub_menu.name}</cite>
+                        </a>
+                    </li>
+                    {/if}
+                    {/foreach}
+                </ul>
+            </li>
+            {/if}
+            {/foreach}
+        </ul>
+    </div>
+</div>

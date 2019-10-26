@@ -1,0 +1,78 @@
+<!doctype html>
+<html class="x-admin-sm">
+<head>
+    {include file="public/head" /}
+    <style type="text/css">
+        .error-panel{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 60px;
+            word-wrap: break-word;
+            line-height: 1.6;
+            color: #afb5bf;
+        }
+        .error-panel p{
+            margin-bottom: 10px;
+        }
+        .error-title{
+            font-size: 80px;
+        }
+        .error-title .layui-icon{
+            font-size: 80px;
+        }
+        .error-msg{
+            font-size: 24px;
+            text-align: center;
+        }
+        .error-action{
+            font-size: 16px;
+        }
+        .error-action a,.error-action .layui-icon{
+            color: #5a98de;;
+        }
+        .error-action a:first-child{
+            margin-right: 10px;
+        }
+        .error-action a:last-child{
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-container">
+    <section class="error-panel">
+        <p class="error-title">
+            {if $info.code==200}
+            <i class="layui-icon">&#xe6af;</i>
+            {else /}
+            <i class="layui-icon">&#xe69c;</i>
+            {/if}
+            <span>{if $info.code}{$info.code}{else /}404{/if}</span>
+        </p>
+        <p class="error-msg">{$info.msg|default='不好意思，您访问的页面不存在~'}</p>
+        <p class="error-action">
+            您可以：
+            <a href="javascript:void(0);" onclick="history.go(-1)" ><i class="layui-icon">&#xe65a;</i> 返回上一页</a>
+            |
+            {if $info['code']==200||$info['code']==401||$info['code']==408}
+            <a href="javascript:void(0);" id="login" data-data='{"url":"{:url(\"Login/index\")}"}'>去登录页 <i class="layui-icon">&#xe65b;</i></a>
+            {else /}
+            <a href="{$info.index_url}">去首页 <i class="layui-icon">&#xe65b;</i></a>
+            {/if}
+        </p>
+    </section>
+</div>
+</body>
+<script type="text/javascript">
+    $("#login").click(function(){
+        let data=$(this).data('data');
+        if (window !== top){
+            top.location.href = data.url;
+            return;
+        }
+        window.location.href = data.url;
+    });
+</script>
+</html>

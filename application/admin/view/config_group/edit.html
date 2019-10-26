@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    {include file="public/head" /}
+</head>
+<body>
+<div class="layui-fluid">
+    <form class="layui-form" data-url="{:url('edit')}" data-method="post">
+        <input type="hidden" name="id" value="{$info.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" value="{$info.name}" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>代码</label>
+            <div class="layui-input-inline">
+                <input type="text" name="code" value="{$info.code}" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">英文字母构成</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="status" value="1" title="正常" {if $info.status == 1}checked{/if} >
+                <input type="radio" name="status" value="0" title="失效" {if $info.status == 0}checked{/if} >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="submit_btn">提交</button>
+            <a href="javascript:parent.layui.layer.closeAll();" class="layui-btn layui-btn-sm layui-btn-primary">取消</a>
+        </div>
+    </form>
+</div>
+</body>
+{include file="public/footer" /}
+</html>

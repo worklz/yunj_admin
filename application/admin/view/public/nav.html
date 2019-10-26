@@ -1,0 +1,13 @@
+<div class="x-nav">
+    <span class="layui-breadcrumb">
+        {if $nav}
+        {volist name="nav.parents" id="vo"}
+        <a href="{$vo.url}">{$vo.txt}</a>
+        {/volist}
+        <a href="{$nav.current.url}"><cite>{$nav.current.txt}</cite></a>
+        {/if}
+    </span>
+    <a class="layui-btn layui-btn-small" id="refresh" style="float:right" title="刷新">
+        <i class="layui-icon layui-icon-refresh"></i>
+    </a>
+</div>

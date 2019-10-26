@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    {include file="public/head" /}
+</head>
+<body>
+<div class="layui-fluid">
+    <form class="layui-form" data-url="{:url('edit')}" data-method="post">
+        <input type="hidden" name="id" value="{$info.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" value="{$info.name}" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>别名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="alias" value="{$info.alias}" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">英文字母构成</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">简介</label>
+            <div class="layui-input-inline">
+                <textarea name="description" placeholder="请输入内容" class="layui-textarea">{$info.description}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">配置权限</label>
+            <div class="layui-input-inline">
+                <table class="layui-table">
+                    <tbody>
+                    {volist name="menus" id="vo"}
+                    <tr><td>
+                        {:str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$vo['level'])}
+                        <input type="checkbox" class="checkbox-parent {if $vo['level'] neq 0}checkbox-child{/if}" name="menus[]" value="{$vo.id}" dataid="id-{$vo.dataid}" title="{$vo.name}" lay-skin="primary" {if in_array($vo.id,explode(',',$info.menu_ids))}checked{/if}>
+                    </td></tr>
+                    {/volist}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="submit_btn">提交</button>
+            <a href="javascript:parent.layui.layer.closeAll();" class="layui-btn layui-btn-sm layui-btn-primary">取消</a>
+        </div>
+    </form>
+</div>
+</body>
+{include file="public/footer" /}
+<script type="text/javascript">
+    layui.use(['layer','form'],function () {
+        $ = layui.jquery;
+        let form = layui.form;
+
+        form.on('checkbox', function(data){
+            let obj=data.elem;
+            let checked=data.elem.checked;
+            let dataid=$(obj).attr("dataid");
+            /*选中所有的下级*/
+            $('input[dataid^='+dataid+']').prop('checked',checked);
+            /*选中所有的上级*/
+            //判断dataid的-数量,小等于1个则是顶级菜单,顶级菜单则结束执行
+            let n=(dataid.split('-')).length-1;
+            if(n<=1){
+                form.render();
+                return true;
+            }
+            dataid=dataid.substring(0,dataid.lastIndexOf("-"));
+            let parent=$('input[dataid='+dataid+']');
+            if(checked){
+                parent.prop('checked',true);
+                //循环到顶级
+                while(dataid.lastIndexOf("-")!==2){
+                    dataid=dataid.substring(0,dataid.lastIndexOf("-"));
+                    parent=$('input[dataid='+dataid+']');
+                    parent.prop('checked',true);
+                }
+            }
+            form.render();
+            return true;
+        });
+    });
+</script>
+</html>

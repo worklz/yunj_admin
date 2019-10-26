@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    {include file="public/head" /}
+</head>
+<body>
+{include file="public/nav" /}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-form layui-col-space5">
+                        <div class="layui-inline show-xs-block">
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <select name="status" lay-filter="status">
+                                    <option value="1">默认正常</option>
+                                    <option value="0">禁用</option>
+                                </select>
+                            </div>
+                            <div class="layui-btn-group">
+                                {if checkAuth('ConfigType/index')}
+                                <button type="button" class="layui-btn layui-btn-sm layui-btn-primary"
+                                        onclick="parent.xadmin.add_tab('配置类型管理','{:url(\'ConfigType/index\')}');">配置类型管理</button>
+                                {/if}
+                                {if checkAuth('ConfigGroup/index')}
+                                <button type="button" class="layui-btn layui-btn-sm layui-btn-primary"
+                                        onclick="parent.xadmin.add_tab('配置组管理','{:url(\'ConfigGroup/index\')}');">配置组管理</button>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <div class="layui-tab layui-tab-brief" lay-filter="config_group">
+                        <ul class="layui-tab-title">
+                            {volist name="groups" id="item"}
+                            <li {if $i==1}class="layui-this"{/if} data-data='{"id":"{$item.id}","url":"{:url(\"search\")}","code":"{$item.code}"}'>{$item.name}</li>
+                            {/volist}
+                        </ul>
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show">
+                                <form class="layui-form layui-col-space5" data-url='{:url("edit")}' data-method='post'></form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/html" id="form_html">
+    {{#  layui.each(d.items, function(index, item){ }}
+    {{#    item.options=item.options?JSON.parse(item.options):null;}}
+    {{#    if(item.type=="text"){ }}
+            <div class="layui-form-item">
+                <label class="layui-form-label">{{item.name}}</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="{{item.id+'_'+item.type}}" value="{{item.value}}" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    {{item.tips?item.tips+'，':''}}
+                    调用：<code>{literal}{:{/literal}sconfig('{{d.group_code}}.{{item.code}}'){literal}}{/literal}</code>
+                </div>
+            </div>
+    {{#    }else if(item.type=="textarea"||item.type=="array"){ }}
+            <div class="layui-form-item">
+                <label class="layui-form-label">{{item.name}}</label>
+                <div class="layui-input-inline">
+                    <textarea name="{{item.id+'_'+item.type}}" class="layui-textarea" rows="5">{{item.value}}</textarea>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    {{item.tips?item.tips+'，':''}}
+                    调用：<code>{literal}{:{/literal}sconfig('{{d.group_code}}.{{item.code}}'){literal}}{/literal}</code>
+                </div>
+            </div>
+    {{#    }else if(item.type=="radio"){ }}
+            <div class="layui-form-item">
+                <label class="layui-form-label">{{item.name}}</label>
+                <div class="layui-input-inline">
+                {{#  layui.each(item.options, function(index, option){ }}
+                        <input type="radio" name="{{item.id+'_'+item.type}}" value="{{option.key}}" title="{{option.value}}" {{option.key==item.value?"checked":""}}>
+                {{#  }); }}
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    {{item.tips?item.tips+'，':''}}
+                    调用：<code>{literal}{:{/literal}sconfig('{{d.group_code}}.{{item.code}}'){literal}}{/literal}</code>
+                </div>
+            </div>
+    {{#    }else if(item.type=="switch"){ }}
+            <div class="layui-form-item">
+                <label class="layui-form-label">{{item.name}}</label>
+                <div class="layui-input-inline">
+                    <input type="hidden" name="{{item.id+'_'+item.type}}" value="{{item.options[0].key==item.value?item.options[0].key:item.options[1].key}}">
+                    <input type="checkbox" data-data='{"name":"{{item.id+\'_\'+item.type}}","value":{{JSON.stringify(item.options)}} }' lay-filter="switch" lay-skin="switch" lay-text="{{item.options[0].value}}|{{item.options[1].value}}" {{item.options[0].key==item.value?'checked':''}}>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    {{item.tips?item.tips+'，':''}}
+                    调用：<code>{literal}{:{/literal}sconfig('{{d.group_code}}.{{item.code}}'){literal}}{/literal}</code>
+                </div>
+            </div>
+    {{#    }else if(item.type=="checkbox"){ }}
+            <div class="layui-form-item">
+                <label class="layui-form-label">{{item.name}}</label>
+                <div class="layui-input-inline">
+                    {{#  layui.each(item.options, function(index, option){ }}
+                    <input type="checkbox" name="{{item.id+'_'+item.type}}[]" value="{{option.key}}" title="{{option.value}}" lay-skin="primary" {{item.value.split(",").indexOf(option.key)!=-1?"checked":""}}>
+                    {{#  }); }}
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    {{item.tips?item.tips+'，':''}}
+                    调用：<code>{literal}{:{/literal}sconfig('{{d.group_code}}.{{item.code}}'){literal}}{/literal}</code>
+                </div>
+            </div>
+    {{#    }else if(item.type=="select"){ }}
+            <div class="layui-form-item">
+                <label class="layui-form-label">{{item.name}}</label>
+                <div class="layui-input-inline">
+                    <select name="{{item.id+'_'+item.type}}">
+                    {{#  layui.each(item.options, function(index, option){ }}
+                        <option value="{{option.key}}" {{option.key==item.value?"selected":""}}>{{option.value}}</option>
+                    {{#  }); }}
+                    </select>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    {{item.tips?item.tips+'，':''}}
+                    调用：<code>{literal}{:{/literal}sconfig('{{d.group_code}}.{{item.code}}'){literal}}{/literal}</code>
+                </div>
+            </div>
+    {{#    }else if(item.type=="image"){ }}
+            <div class="layui-form-item">
+                <label class="layui-form-label">{{item.name}}</label>
+                <div class="layui-input-inline">
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-primary file-upload" lay-data='{"url":"{:url(\"fileUpload\")}"}'><i class="layui-icon">&#xe67c;</i> 上传图片</button>
+                    <input class="upload-img-txt" type="hidden" name="{{item.id+'_'+item.type}}" value="{{item.value}}">
+                    <div class="upload-img-container">
+                        <img src="{{item.value}}" onerror="this.src='__ADMIN__/imgs/img_error.png';" title="点击预览">
+                        <i class="layui-icon layui-icon-close-fill" title="删除"></i>
+                    </div>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    {{item.tips?item.tips+'，':''}}
+                    调用：<code>{literal}{:{/literal}sconfig('{{d.group_code}}.{{item.code}}'){literal}}{/literal}</code>
+                </div>
+            </div>
+    {{#    } }}
+    {{#  }); }}
+    {{#  if(d.items.length){ }}
+            <div class="layui-form-item">
+                <label class="layui-form-label"></label>
+                {if checkAuth('Config/edit')}
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="submit_btn">提交保存</button>
+                {/if}
+            </div>
+    {{#  }else{ }}
+            <div class="layui-text">暂无配置项</div>
+    {{#  } }}
+</script>
+
+{include file="public/footer" /}
+<script type="text/javascript" src="__ADMIN__/js/file_upload.js?v={$Think.config.system.version}"></script>
+<script type="text/javascript">
+    layui.use(['jquery','form','element','laytpl'],function () {
+        $ = layui.jquery;
+        let form=layui.form;
+        let element=layui.element;
+        let laytpl=layui.laytpl;
+
+        init();
+        //初始化
+        function init() {
+            resetConfig();
+        }
+
+        //状态
+        form.on('select(status)', function(obj){
+            form.render('select');
+            resetConfig();
+        });
+
+        //切换选项卡
+        element.on('tab(config_group)', function(obj){
+            resetConfig();
+        });
+
+        //重置页面配置
+        function resetConfig() {
+            let status=$("select[lay-filter=status]").val();
+            let groupData=$(".layui-tab-title .layui-this").data("data");
+            let configContainer=$(".layui-tab-item.layui-show").find("form");
+            let formHtml='';
+            configContainer.html(formHtml);
+            request({
+                type:"get",
+                url:groupData.url,
+                data:{status:status,group_id:groupData.id},
+                loading_txt:"查询中...",
+                successCallback: function (res) {
+                    successAlert(res.msg);
+                    let data={group_code:groupData.code,items:res.data};
+                    laytpl(form_html.innerHTML).render(data,function(html){
+                        formHtml = html;
+                    });
+                    configContainer.html(formHtml);
+                    resetRender();
+                }
+            });
+        }
+
+        //重新渲染方法
+        function resetRender() {
+            form.render();
+            fileUpload();
+        }
+
+        //开关
+        form.on('switch(switch)', function(data){
+            let obj=data.elem;
+            let objData=$(obj).data('data');
+            let value=obj.checked?objData.value[0].key:objData.value[1].key;
+            $("input[name="+objData.name+"]").val(value);
+        });
+    });
+</script>
+</html>

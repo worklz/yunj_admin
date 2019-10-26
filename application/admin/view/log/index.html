@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    {include file="public/head" /}
+</head>
+<body>
+{include file="public/nav" /}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <form class="layui-form layui-col-space5" id="search_form">
+                        <div class="layui-inline show-xs-block">
+                            <input type="text" name="keywords" placeholder="操作人/简述" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-inline show-xs-block">
+                            <input class="layui-input" autocomplete="off" readonly placeholder="开始日" name="start_time" id="start_time">
+                        </div>
+                        <div class="layui-inline show-xs-block">
+                            <input class="layui-input" autocomplete="off" readonly placeholder="截止日" name="end_time" id="end_time">
+                        </div>
+                        <div class="layui-inline show-xs-block">
+                            <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="submit"><i class="layui-icon">&#xe615;</i> 搜索</button>
+                            <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe669;</i> 重置</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-card-body ">
+                    <table id="table_data" class="layui-table" lay-filter="table_data"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/html" id="requestContentTpl">
+    {{# let request_content=JSON.parse(d.request_content); }}
+    {{# }}
+</script>
+
+{include file="public/footer" /}
+<script type="text/javascript" src="__ADMIN__/js/table_data.js?v={$Think.config.system.version}"></script>
+<script type="text/javascript">
+    var table_args={
+        page:true,
+        defaultToolbar: ['filter',{title:'导出',layEvent: 'export',icon: 'layui-icon-export'}, 'print'],
+        export_data:{"url":"{:url('export')}","title":"日志"},
+        cols:[[
+            {field:'create_time',title: '记录时间',align:'center'},
+            {field:'description',title:'简述'},
+            {field:'nickname',title: '操作人'},
+            {field:'ip',title:'IP地址',hide:isMobile()},
+            {field:'request_content',title:'请求内容',hide:isMobile()},
+        ]]
+    };
+    layui.use(['laydate'],function () {
+        let laydate = layui.laydate;
+        laydate.render({elem: '#start_time'});
+        laydate.render({elem: '#end_time'});
+    });
+</script>
+</html>

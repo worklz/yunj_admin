@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    {include file="public/head" /}
+</head>
+<body>
+<div class="layui-fluid">
+    <form class="layui-form" data-url="{:url('edit')}" data-method="post">
+        <input type="hidden" name="id" value="{$info.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">父级菜单</label>
+            <div class="layui-input-inline">
+                <select name="pid" lay-verify="required">
+                    <option value="0">顶级菜单</option>
+                    {volist name="menus" id="vo"}
+                    <option value="{$vo.id}" {if $info.pid == $vo.id}selected{/if} {if $info.id == $vo.id}disabled{/if}>{:str_repeat('|--',$vo.level)}{$vo.name}</option>
+                    {/volist}
+                </select>
+            </div>
+            <div class="layui-form-mid layui-word-aux">默认为顶级菜单</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" value="{$info.name}" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>控制器/方法</label>
+            <div class="layui-input-inline">
+                <input type="text" name="code" value="{$info.code}" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单图标</label>
+            <div class="layui-input-inline input-icon-inline">
+                <i class="{$info.icon|raw}"></i>
+                <input type="text" name="icon" value="{$info.icon}" placeholder="图标class" autocomplete="off" class="layui-input">
+                <i class="layui-icon icon-sel">选</i>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                可直接填写图标样式，参考<a href="https://www.layui.com/doc/element/icon.html" target="_blank">Layui字体图标</a>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单栏显示</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="is_show" value="1" title="显示" {if $info.is_show == 1}checked{/if} >
+                <input type="radio" name="is_show" value="0" title="隐藏" {if $info.is_show == 0}checked{/if} >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="status" value="1" title="正常" {if $info.status == 1}checked{/if} >
+                <input type="radio" name="status" value="0" title="失效" {if $info.status == 0}checked{/if} >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" lay-submit lay-filter="submit_btn">提交</button>
+            <a href="javascript:parent.layui.layer.closeAll();" class="layui-btn layui-btn-sm layui-btn-primary">取消</a>
+        </div>
+    </form>
+</div>
+</body>
+{include file="public/footer" /}
+<script type="text/javascript">
+    layui.use(['jquery','layer'],function () {
+        $ = layui.jquery;
+        $("input[name=icon]").keyup(function () {
+            let iconClass=$(this).val();
+            if(iconClass.indexOf('layui-icon')===-1){
+                iconClass='layui-icon';
+            }
+            $(this).prev(".layui-icon").attr('class',iconClass);
+        });
+
+        $(".icon-sel").click(function () {
+            openPopup({title: '选择图标',content: "{:url('Other/icon')}"});
+        });
+    });
+</script>
+</html>

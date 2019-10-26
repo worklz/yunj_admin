@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/head" /}
+</head>
+<body>
+{include file="public/header" /}
+<div class="install-box">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>错误提示</legend>
+    </fieldset>
+    <div class="res-box">
+        <i class="layui-icon layui-icon-face-cry error-icon"></i>
+        <span class="txt">{$error.msg}</span>
+    </div>
+    <div class="step-btns">
+        {if $error.url}
+        <a href='{$error.url}' class="layui-btn layui-btn-big layui-btn-primary">返回上一步</a>
+        {/if}
+        <a href='{:url("index")}' class="layui-btn layui-btn-big layui-btn-normal">回到首页</a>
+    </div>
+</div>
+{include file="public/copyright" /}
+</body>
+{include file="public/footer" /}
+</html>

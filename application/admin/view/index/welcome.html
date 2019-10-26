@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    {include file="public/head" /}
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <blockquote class="layui-elem-quote">欢迎{$Think.session.role_name}：
+                        <span class="x-red">{$Think.session.nickname}</span>！当前时间:{$current_time}
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">数据统计</div>
+                <div class="layui-card-body ">
+                    <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>文章数</h3>
+                                <p><cite>66</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>会员数</h3>
+                                <p><cite>12</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>回复数</h3>
+                                <p><cite>99</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>商品数</h3>
+                                <p><cite>67</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>文章数</h3>
+                                <p><cite>67</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6 ">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>文章数</h3>
+                                <p><cite>6766</cite></p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">系统信息</div>
+                <div class="layui-card-body ">
+                    <table class="layui-table">
+                        <tbody>
+                        <tr>
+                            <th>System sample</th>
+                            <td>V{$version}</td>
+                        </tr>
+                        <tr>
+                            <th>服务器地址</th>
+                            <td>{$site_domain}</td>
+                        </tr>
+                        <tr>
+                            <th>操作系统</th>
+                            <td>{$os}</td>
+                        </tr>
+                        <tr>
+                            <th>运行环境</th>
+                            <td>{$runtime_environment}</td>
+                        </tr>
+                        <tr>
+                            <th>PHP版本</th>
+                            <td>{$php_version}</td>
+                        </tr>
+                        <tr>
+                            <th>MYSQL版本</th>
+                            <td>{$mysql_version}</td>
+                        </tr>
+                        <tr>
+                            <th>ThinkPHP</th>
+                            <td>{$tp_version}</td>
+                        </tr>
+                        <tr>
+                            <th>上传附件限制</th>
+                            <td>{$max_upload_size}</td>
+                        </tr>
+                        <tr>
+                            <th>执行时间限制</th>
+                            <td>30s</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">开发团队</div>
+                <div class="layui-card-body ">
+                    <table class="layui-table">
+                        <tbody>
+                        <tr>
+                            <th>版权所有</th>
+                            <td><a href="{$Think.config.system.author_site}" target="_blank">{$Think.config.system.author_site}</a></td>
+                        </tr>
+                        <tr>
+                            <th>开发者</th>
+                            <td>{$Think.config.system.author}&nbsp;&nbsp;&nbsp;&nbsp;{$Think.config.system.author_email}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <style id="welcome_style"></style>
+        <div class="layui-col-md12">
+            <blockquote class="layui-elem-quote layui-quote-nm">Copyright {$Think.config.system.author_site} By V{$Think.config.system.version}</blockquote>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
