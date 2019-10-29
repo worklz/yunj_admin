@@ -8,3 +8,7 @@
 + 用户管理
 + 系统日志
 + 系统配置
+
+体验地址：[http://ss.lzadmin.top/admin ](http://ss.lzadmin.top/admin)
+
+体验账户：admin 123456
