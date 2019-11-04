@@ -9,6 +9,35 @@
 + 系统日志
 + 系统配置
 
+####引入富文本编辑器
+
+1. kindeditor--推荐使用
+    > 在视图文件书写如下：
+    ```
+    <textarea id="kindeditor_container">请输入内容...</textarea>
+    <script src="/static/libs/kindeditor/kindeditor-all-min.js" charset="utf-8"></script>
+    <script src="/static/libs/kindeditor/lang/zh-CN.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__ADMIN__/js/kindeditor_init.js?v={$Think.config.system.version}"></script>
+    <script type="text/javascript">
+        kindEditorInit();
+    </script>
+    ```
+
+2. wangEditor
+    > 在视图文件书写如下：
+    ```
+    <textarea id="wang_editor" style="display: none;"></textarea>
+    <div id="editor" data-data='{"container_id":"wang_editor","file_upload_url":"{:url(\"fileUpload\")}"}'>
+        <p>请输入内容...</p>
+    </div>
+    <script src="/static/libs/wangEditor-3.1.1/release/wangEditor.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__ADMIN__/js/wang_editor_init.js?v={$Think.config.system.version}"></script>
+    <script type="text/javascript">
+        wangEditorInit();
+    </script>
+    ```
+
 体验地址：[http://ss.lzadmin.top/admin ](http://ss.lzadmin.top/admin)
 
 体验账户：admin 123456
+
