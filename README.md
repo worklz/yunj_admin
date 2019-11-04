@@ -9,10 +9,10 @@
 + 系统日志
 + 系统配置
 
-####引入富文本编辑器
+#### 引入富文本编辑器
 
 1. kindeditor--推荐使用
-    > 在视图文件书写如下：
+    > 在视图文件中书写如下：
     ```
     <textarea id="kindeditor_container">请输入内容...</textarea>
     <script src="/static/libs/kindeditor/kindeditor-all-min.js" charset="utf-8"></script>
@@ -24,7 +24,7 @@
     ```
 
 2. wangEditor
-    > 在视图文件书写如下：
+    > 在视图文件中书写如下：
     ```
     <textarea id="wang_editor" style="display: none;"></textarea>
     <div id="editor" data-data='{"container_id":"wang_editor","file_upload_url":"{:url(\"fileUpload\")}"}'>
