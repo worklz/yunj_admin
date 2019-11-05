@@ -70,7 +70,7 @@
         });
 
         $("#captcha_img").click(function () {
-            $(this).attr('src', '{:captcha_src()}');
+            $(this).attr('src', '{:captcha_src()}?seed='+Math.random());
         });
     });
 </script>
