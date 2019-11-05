@@ -19,9 +19,9 @@
             let minHeight=400;
             if (isMobile()) {
                 items = [
-                    'undo', 'redo', '|', 'preview', 'code', '|',
+                    'source', '|', 'undo', 'redo', '|', 'preview', 'code', '|',
                     'insertorderedlist', 'insertunorderedlist', 'formatblock', '|',
-                    'image', 'insertfile', 'table', 'hr', 'link'
+                    'image', 'insertfile', 'hr', 'link'
                 ];
                 minHeight=300;
             }
