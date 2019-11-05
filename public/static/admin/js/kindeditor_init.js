@@ -15,12 +15,15 @@
                 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', '|',
                 'image', 'insertfile', 'table', 'hr', 'link'
             ];
+            //最小高度
+            let minHeight=400;
             if (isMobile()) {
                 items = [
                     'undo', 'redo', '|', 'preview', 'code', '|',
                     'insertorderedlist', 'insertunorderedlist', 'formatblock', '|',
                     'image', 'insertfile', 'table', 'hr', 'link'
                 ];
+                minHeight=300;
             }
             //创建编辑器
             KindEditor.ready(function (K) {
@@ -29,7 +32,7 @@
                     resizeType: 1,
                     pasteType: 1,
                     width: '100%',
-                    minHeight: 300,
+                    minHeight: minHeight,
                     syncType: '',
                     afterChange: function () {
                         let that = this;
