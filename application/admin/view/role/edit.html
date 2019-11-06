@@ -59,6 +59,7 @@
             let obj=data.elem;
             let checked=data.elem.checked;
             let dataid=$(obj).attr("dataid");
+            if(!dataid) return false;
             /*选中所有的下级*/
             $('input[dataid^='+dataid+']').prop('checked',checked);
             /*选中所有的上级*/
