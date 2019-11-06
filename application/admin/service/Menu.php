@@ -63,11 +63,13 @@ class Menu {
         foreach ($menus as $k => $v) {
             if ($v['id'] == $menuID) {
                 $arr[] = $v['id'];
-                $this->_getParentId($menus, $v['pid'],false);
+                if($v['pid']){
+                    $this->_getParentId($menus, $v['pid'],false);
+                }
             }
         }
         //数组排序
-        asort($arr);
+        krsort($arr);
         //将数组组合成1-2-3的字符串
         $arrStr=implode('-',$arr);
         return $arrStr;
