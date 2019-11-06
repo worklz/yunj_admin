@@ -400,3 +400,73 @@ function parseSql($sql = '', $limit = 0, $prefix = []) {
         return $limit == 1 ? '' : [];
     }
 }
+
+/**
+ * Description: 是否移动端
+ * Author: Uncle-L
+ * Date: 2019/11/6
+ * Time: 14:47
+ * @return bool
+ */
+function isMobile() {
+    $_SERVER['ALL_HTTP'] = isset($_SERVER['ALL_HTTP']) ? $_SERVER['ALL_HTTP'] : '';
+    $mobile_browser = '0';
+    if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|iphone|ipad|ipod|android|xoom)/i', strtolower($_SERVER['HTTP_USER_AGENT'])))
+        $mobile_browser++;
+    if ((isset($_SERVER['HTTP_ACCEPT'])) and (strpos(strtolower($_SERVER['HTTP_ACCEPT']), 'application/vnd.wap.xhtml+xml') !== false))
+        $mobile_browser++;
+    if (isset($_SERVER['HTTP_X_WAP_PROFILE']))
+        $mobile_browser++;
+    if (isset($_SERVER['HTTP_PROFILE']))
+        $mobile_browser++;
+    $mobile_ua = strtolower(substr($_SERVER['HTTP_USER_AGENT'], 0, 4));
+    $mobile_agents = array(
+        'w3c ', 'acs-', 'alav', 'alca', 'amoi', 'audi', 'avan', 'benq', 'bird', 'blac',
+        'blaz', 'brew', 'cell', 'cldc', 'cmd-', 'dang', 'doco', 'eric', 'hipt', 'inno',
+        'ipaq', 'java', 'jigs', 'kddi', 'keji', 'leno', 'lg-c', 'lg-d', 'lg-g', 'lge-',
+        'maui', 'maxo', 'midp', 'mits', 'mmef', 'mobi', 'mot-', 'moto', 'mwbp', 'nec-',
+        'newt', 'noki', 'oper', 'palm', 'pana', 'pant', 'phil', 'play', 'port', 'prox',
+        'qwap', 'sage', 'sams', 'sany', 'sch-', 'sec-', 'send', 'seri', 'sgh-', 'shar',
+        'sie-', 'siem', 'smal', 'smar', 'sony', 'sph-', 'symb', 't-mo', 'teli', 'tim-',
+        'tosh', 'tsm-', 'upg1', 'upsi', 'vk-v', 'voda', 'wap-', 'wapa', 'wapi', 'wapp',
+        'wapr', 'webc', 'winw', 'winw', 'xda', 'xda-'
+    );
+    if (in_array($mobile_ua, $mobile_agents))
+        $mobile_browser++;
+    if (strpos(strtolower($_SERVER['ALL_HTTP']), 'operamini') !== false)
+        $mobile_browser++;
+    // win
+    if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'windows') !== false)
+        $mobile_browser = 0;
+    // win7
+    if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'windows phone') !== false)
+        $mobile_browser++;
+    if ($mobile_browser > 0) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Description: 是否微信浏览器
+ * Author: Uncle-L
+ * Date: 2019/11/6
+ * Time: 14:47
+ * @return bool
+ */
+function isWechatBrowser(){
+    $res=isset($_SERVER['HTTP_USER_AGENT'])&& (strripos($_SERVER['HTTP_USER_AGENT'],'micromessenger')!=false||strripos($_SERVER['HTTP_USER_AGENT'],'mqqbrowser')!=false);
+    return $res;
+}
+
+/**
+ * Description: 是否微信小程序
+ * Author: Uncle-L
+ * Date: 2019/11/6
+ * Time: 14:47
+ * @return bool
+ */
+function isWechatApplet(){
+    $res=isset($_SERVER['HTTP_USER_AGENT'])&&strripos($_SERVER['HTTP_USER_AGENT'],'miniprogram')!=false;
+    return $res;
+}
