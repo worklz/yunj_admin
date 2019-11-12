@@ -57,8 +57,8 @@
     };
     layui.use(['laydate'],function () {
         let laydate = layui.laydate;
-        laydate.render({elem: '#start_time'});
-        laydate.render({elem: '#end_time'});
+        laydate.render({elem: '#start_time',type: 'datetime',trigger: 'click',format: 'yyyy-MM-dd HH:mm:ss'});
+        laydate.render({elem: '#end_time',type: 'datetime',trigger: 'click',format: 'yyyy-MM-dd HH:mm:ss'});
     });
 </script>
 </html>
