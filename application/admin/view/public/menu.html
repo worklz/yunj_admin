@@ -13,7 +13,7 @@
                     {foreach $menus as $sub_menu }
                     {if ($sub_menu.pid == $menu.id)}
                     <li>
-                        <a onclick="xadmin.add_tab('{$sub_menu.name}','{:url($sub_menu.code)}')">
+                        <a onclick="yunj_admin.add_tab('{$sub_menu.name}','{:url($sub_menu.code)}')">
                             <i class="{$sub_menu.icon|raw}"></i>
                             <cite>{$sub_menu.name}</cite>
                         </a>

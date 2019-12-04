@@ -30,7 +30,7 @@ class NowInstall extends Common {
                     try {
                         Db::execute($v);
                     } catch(\Exception $e) {
-                        returnJson(['code'=>'99999','msg'=>'请启用InnoDB数据引擎，并检查数据库是否有DROP和CREATE权限！']);
+                        returnJson(['code'=>'99999','msg'=>'请先测试数据库连接！']);
                     }
                 }
             }
