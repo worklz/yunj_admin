@@ -29,8 +29,9 @@ class Index extends Controller {
      */
     public function checkEnvironment() {
         $service = new CheckEnvironmentService();
+        $data=$service->checkData();
         session('install_check_pass',$service->install_check_pass);
-        $this->assign(['data'=>$service->checkData()]);
+        $this->assign(['data'=>$data]);
         return $this->fetch();
     }
 
