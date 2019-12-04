@@ -205,15 +205,7 @@ class CheckEnvironment extends Common{
                 'demand' => '读/写',
                 'current' => '读/写',
                 'pass' => true
-            ],
-            'upload'=>[
-                'title'=>'./upload',
-                'type'=>'dir',
-                'path'=>$this->root_path.'public/upload',
-                'demand' => '读/写',
-                'current' => '读/写',
-                'pass' => true
-            ],
+            ]
         ];
 
         foreach ($items as &$v) {
