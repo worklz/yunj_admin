@@ -37,7 +37,7 @@
     </script>
     ```
 
-体验地址：[http://admin.yunj.net.cn/admin ](http://admin.lzadmin.net.cn/admin)
+体验地址：[http://admin.yunj.net.cn/admin ](http://admin.yunj.net.cn/admin)
 
 体验账户：admin 123456
 
