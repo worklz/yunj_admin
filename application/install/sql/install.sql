@@ -53,20 +53,20 @@ CREATE TABLE `ss_config_item` (
 -- ----------------------------
 -- Records of ss_config_item
 -- ----------------------------
-INSERT INTO `ss_config_item` VALUES ('1', '站点名称', 'site_name', '', '将显示在浏览器窗口标题等位置', '', '1', '1', '1', '1568000718', '1570171221', '1');
+INSERT INTO `ss_config_item` VALUES ('1', '站点名称', 'site_name', '云静Admin', '将显示在浏览器窗口标题等位置', '', '1', '1', '1', '1568000718', '1570171221', '1');
 INSERT INTO `ss_config_item` VALUES ('2', 'text测试', 'test_text', 'text测试', 'text测试提示', '', '1', '2', '1', '1568009088', '1569389624', '1');
 INSERT INTO `ss_config_item` VALUES ('3', 'textarea测试', 'test_textarea', 'textarea测试', 'textarea测试提示', '', '2', '2', '2', '1568010137', '1569389624', '1');
 INSERT INTO `ss_config_item` VALUES ('4', 'radio测试', 'test_radio', 'r2', 'radio测试提示', '[{\"key\":\"r1\",\"value\":\"\\u9009\\u98791\"},{\"key\":\"r2\",\"value\":\"\\u9009\\u98792\"},{\"key\":\"r3\",\"value\":\"\\u9009\\u98793\"}]', '3', '2', '3', '1568081059', '1569389624', '1');
 INSERT INTO `ss_config_item` VALUES ('5', 'switch测试', 'test_switch', '1', 'switch测试提示', '[{\"key\":\"1\",\"value\":\"\\u5f00\"},{\"key\":\"2\",\"value\":\"\\u5173\"}]', '4', '2', '7', '1568081123', '1569389624', '1');
 INSERT INTO `ss_config_item` VALUES ('6', 'checkbox测试', 'test_checkbox', 'c1,c2,c3', 'checkbox测试提示', '[{\"key\":\"c1\",\"value\":\"\\u9009\\u98791\"},{\"key\":\"c2\",\"value\":\"\\u9009\\u98792\"},{\"key\":\"c3\",\"value\":\"\\u9009\\u98793\"}]', '5', '2', '4', '1568081173', '1569389624', '1');
 INSERT INTO `ss_config_item` VALUES ('7', 'select测试', 'test_select', 's2', 'select测试提示', '[{\"key\":\"s1\",\"value\":\"\\u9009\\u98791\"},{\"key\":\"s2\",\"value\":\"\\u9009\\u98792\"},{\"key\":\"s3\",\"value\":\"\\u9009\\u98793\"}]', '6', '2', '5', '1568081230', '1569389624', '1');
-INSERT INTO `ss_config_item` VALUES ('8', 'image测试', 'test_image', '/upload/image/20190925/c92a9bbc59802df97874afacb9188fad.png', 'image测试提示', '', '7', '2', '6', '1568081272', '1569389624', '1');
+INSERT INTO `ss_config_item` VALUES ('8', 'image测试', 'test_image', '/favicon.ico', 'image测试提示', '', '7', '2', '6', '1568081272', '1569389624', '1');
 INSERT INTO `ss_config_item` VALUES ('9', 'array测试', 'test_array', 'Index/index,Error/index,User/info', 'test_array测试提示语', '', '99', '2', '8', '1568276218', '1569389624', '1');
 INSERT INTO `ss_config_item` VALUES ('10', '站点地址', 'site_domain', '', '', '', '2', '1', '1', '1568276911', '1570171221', '1');
 INSERT INTO `ss_config_item` VALUES ('11', '通用控制器/方法', 'no_check_controller_action', 'Index/index,Error/index,User/info', '', '', '50', '1', '8', '1568277428', '1570171221', '1');
 INSERT INTO `ss_config_item` VALUES ('12', '导出文件数据量限制', 'export_file_data_number_limit', '800', '每个文件数据条数限制，单位/条', '', '99', '1', '1', '1568855575', '1570171221', '1');
-INSERT INTO `ss_config_item` VALUES ('13', '站点图标', 'site_favicon', '', '用于浏览器的地址栏展示，.ico格式', '', '3', '1', '6', '1569378332', '1570171221', '1');
-INSERT INTO `ss_config_item` VALUES ('14', '站点LOGO', 'site_logo', '', '站点的LOGO图片', '', '40', '1', '6', '1569378398', '1570171221', '1');
+INSERT INTO `ss_config_item` VALUES ('13', '站点图标', 'site_favicon', '/favicon.ico', '用于浏览器的地址栏展示，.ico格式', '', '3', '1', '6', '1569378332', '1570171221', '1');
+INSERT INTO `ss_config_item` VALUES ('14', '站点LOGO', 'site_logo', '/favicon.ico', '站点的LOGO图片', '', '40', '1', '6', '1569378398', '1570171221', '1');
 INSERT INTO `ss_config_item` VALUES ('15', '图片大小限制', 'image_size', '2048', '单位：KB，0表示不限制上传大小', '', '99', '3', '1', '1569379745', '1569379745', '1');
 INSERT INTO `ss_config_item` VALUES ('16', '图片格式', 'image_ext', 'jpg,png,gif,jpeg,ico', '多个格式请用英文逗号（,）隔开', '', '99', '3', '1', '1569379876', '1569379876', '1');
 INSERT INTO `ss_config_item` VALUES ('17', '操作超时时间', 'action_timeout', '1800', '单位：秒。设置时间不可过小，请谨慎操作', '', '45', '1', '1', '1569490682', '1570171221', '1');
