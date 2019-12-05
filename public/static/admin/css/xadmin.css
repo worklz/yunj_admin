@@ -325,11 +325,11 @@ body{
     height: 100%;
 
 }
-.x-admin-carousel,.layui-carousel,.x-admin-carousel>[carousel-item]>* {
+.yunj-admin-carousel,.layui-carousel,.yunj-admin-carousel>[carousel-item]>* {
     background-color:#fff
 }
 
-.x-admin-backlog .x-admin-backlog-body {
+.yunj-admin-backlog .yunj-admin-backlog-body {
     display:block;
     padding:10px 15px;
     background-color:#f8f8f8;
@@ -338,17 +338,17 @@ body{
     transition:all .3s;
     -webkit-transition:all .3s
 }
-.x-admin-backlog-body h3 {
+.yunj-admin-backlog-body h3 {
     padding-bottom:10px;
     font-size:12px
 }
-.x-admin-backlog-body p cite {
+.yunj-admin-backlog-body p cite {
     font-style:normal;
     font-size:30px;
     font-weight:300;
     color:#009688
 }
-.x-admin-backlog-body:hover {
+.yunj-admin-backlog-body:hover {
     background-color:#CFCFCF;
     color:#888
 }
@@ -445,88 +445,88 @@ table th, table td {
 
 /*精细版样式*/
 
-.x-admin-sm{
+.yunj-admin-sm{
     font-size: 12px;
 }
-.x-admin-sm body{
+.yunj-admin-sm body{
     font-size: 12px;
 }
 /*登录页面样式*/
-.x-admin-sm .login input[type=submit],.x-admin-sm .login input[type=button]{
+.yunj-admin-sm .login input[type=submit],.yunj-admin-sm .login input[type=button]{
     font-size: 14px;
 }
-.x-admin-sm .login input[type=text],
-.x-admin-sm .login input[type=file],
-.x-admin-sm .login input[type=password],
-.x-admin-sm .login input[type=email], .x-admin-sm select {
+.yunj-admin-sm .login input[type=text],
+.yunj-admin-sm .login input[type=file],
+.yunj-admin-sm .login input[type=password],
+.yunj-admin-sm .login input[type=email], .yunj-admin-sm select {
     font-size: 12px;
 }
-.x-admin-sm .login .message{
+.yunj-admin-sm .login .message{
     font-size: 14px;
 }
 
-.x-admin-sm .layui-table td, .x-admin-sm .layui-table th{
+.yunj-admin-sm .layui-table td, .yunj-admin-sm .layui-table th{
     font-size: 12px;
 }
-.x-admin-sm .layui-elem-field legend{
+.yunj-admin-sm .layui-elem-field legend{
     font-size: 18px;
 }
 
-.x-admin-sm .x-admin-backlog-body p cite{
+.yunj-admin-sm .yunj-admin-backlog-body p cite{
     font-size: 24px;
 }
-.x-admin-sm .left-nav #nav li a cite{
+.yunj-admin-sm .left-nav #nav li a cite{
     font-size: 12px;
 }
-.x-admin-sm .iconfont{
+.yunj-admin-sm .iconfont{
     font-size: 14px;
 }
-.x-admin-sm .layui-tab-title li{
+.yunj-admin-sm .layui-tab-title li{
     font-size: 12px;
 }
-.x-admin-sm .layui-icon{
+.yunj-admin-sm .layui-icon{
     font-size: 14px;
 }
-.x-admin-sm .layui-nav *{
+.yunj-admin-sm .layui-nav *{
     font-size: 12px;
 }
-.x-admin-sm  .layui-breadcrumb>*{
+.yunj-admin-sm  .layui-breadcrumb>*{
    font-size: 12px; 
 }
-.x-admin-sm  .layui-btn,.x-admin-sm .layui-btn-xs,.x-admin-sm .layui-btn-sm{
+.yunj-admin-sm  .layui-btn,.yunj-admin-sm .layui-btn-xs,.yunj-admin-sm .layui-btn-sm{
     font-size: 12px;
 }
 
-.x-admin-sm .layui-laydate{
+.yunj-admin-sm .layui-laydate{
     font-size: 12px;
 }
-.x-admin-sm  .layui-btn{
+.yunj-admin-sm  .layui-btn{
     /*height: 30px;*/
     /*line-height: 30px;*/
     /*padding: 0 10px;*/
 }
 
-.x-admin-sm .layui-btn-lg{
+.yunj-admin-sm .layui-btn-lg{
     height: 38px;
     line-height: 38px;
     padding: 0 18px;
     font-size: 14px;
 }
-.x-admin-sm .layui-layer-title,.x-admin-sm .layui-layer-dialog .layui-layer-content{
+.yunj-admin-sm .layui-layer-title,.yunj-admin-sm .layui-layer-dialog .layui-layer-content{
     font-size: 12px;
 }
-.x-admin-sm .layui-input,.x-admin-sm .layui-select,.x-admin-sm .layui-textarea{
+.yunj-admin-sm .layui-input,.yunj-admin-sm .layui-select,.yunj-admin-sm .layui-textarea{
     height: 30px;
 }
 
-.x-admin-sm .layui-form-pane .layui-form-label{
+.yunj-admin-sm .layui-form-pane .layui-form-label{
     height: 30px;
     line-height: 14px;
 }
-.x-admin-sm .layui-form-checkbox span{
+.yunj-admin-sm .layui-form-checkbox span{
     font-size: 12px;
 }
-.x-admin-sm .fly-none .layui-icon {
+.yunj-admin-sm .fly-none .layui-icon {
     line-height: 300px;
     font-size: 300px;
     color: #393D49;
