@@ -172,14 +172,6 @@ class CheckEnvironment extends Common{
      */
     private function checkDir() {
         $items = [
-            'application'=>[
-                'title'=>'application',
-                'type'=>'dir',
-                'path'=>$this->root_path.'application',
-                'demand' => '读/写',
-                'current' => '读/写',
-                'pass' => true
-            ],
             'config'=>[
                 'title'=>'config',
                 'type'=>'dir',
@@ -188,26 +180,10 @@ class CheckEnvironment extends Common{
                 'current' => '读/写',
                 'pass' => true
             ],
-            'extend'=>[
-                'title'=>'extend',
-                'type'=>'dir',
-                'path'=>$this->root_path.'extend',
-                'demand' => '读/写',
-                'current' => '读/写',
-                'pass' => true
-            ],
             'public'=>[
                 'title'=>'public',
                 'type'=>'dir',
                 'path'=>$this->root_path.'public',
-                'demand' => '读/写',
-                'current' => '读/写',
-                'pass' => true
-            ],
-            'static'=>[
-                'title'=>'./static',
-                'type'=>'dir',
-                'path'=>$this->root_path.'public/static',
                 'demand' => '读/写',
                 'current' => '读/写',
                 'pass' => true
