@@ -11,6 +11,8 @@ class Install extends Common {
         'password|数据库密码' => 'require',
         'prefix|数据库前缀' => 'require|regex:^[a-z0-9]{1,20}[_]{1}',
         'cover|覆盖数据库' => 'require|in:0,1',
+        'redis_host|Redis主机' => 'require',
+        'redis_port|Redis端口' => 'require|number',
         'admin_username|管理员账号' => 'require|min:4|max:20',
         'admin_password|管理员密码' => 'require|min:6|max:20',
     ];
@@ -26,6 +28,9 @@ class Install extends Common {
         'prefix.require'=>'不能为空',
         'prefix.regex'=>'格式错误',
         'cover.in'=>'选择错误',
+        'redis_host.require'=>'不能为空',
+        'redis_port.require'=>'不能为空',
+        'redis_port.number'=>'只能是数字',
         'admin_username.require'=>'不能为空',
         'admin_username.min'=>'格式错误',
         'admin_password.require'=>'不能为空',
@@ -34,7 +39,7 @@ class Install extends Common {
 
     protected $scene = [
         'db_install'=>['hostname','hostport','database','username','password','prefix','cover'],
-        'now_install'=>['admin_username','admin_password'],
+        'now_install'=>['redis_host','redis_port','redis_password','admin_username','admin_password'],
     ];
 
     /**

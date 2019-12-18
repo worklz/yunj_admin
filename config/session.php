@@ -20,7 +20,7 @@ return [
     // SESSION 前缀
     'prefix' => 'yunj_',
     // 驱动方式 支持redis memcache memcached
-    'type' => 'redis',
+    'type' => '',
     // 是否自动开启 SESSION
     'auto_start' => true,
     // SESSION 过期时间，单位秒

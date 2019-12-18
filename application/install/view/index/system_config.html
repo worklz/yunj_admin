@@ -66,8 +66,29 @@
     </form>
     <form class="layui-form layui-form-pane" data-data='{"install_check_pass":"{$Think.session.install_check_pass}","now_install_url":"{:url(\"nowInstall\")}"}'>
         <fieldset class="layui-elem-field layui-field-title">
-            <legend>第二步：管理账号设置</legend>
+            <legend>第二步：账号配置</legend>
         </fieldset>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Redis主机</label>
+            <div class="layui-input-inline w200">
+                <input type="text" class="layui-input" name="redis_host" lay-verify="required" value="127.0.0.1">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>Redis主机地址，一般为127.0.0.1</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Redis端口</label>
+            <div class="layui-input-inline w200">
+                <input type="text" class="layui-input" name="redis_port" lay-verify="required" value="6379">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>Redis端口，一般为6379</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Redis密码</label>
+            <div class="layui-input-inline w200">
+                <input type="password" class="layui-input" name="redis_password">
+            </div>
+            <div class="layui-form-mid layui-word-aux"></div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">管理员账号</label>
             <div class="layui-input-inline w200">
