@@ -23,7 +23,7 @@ class NowInstall extends Common {
         $installSqlFilePath = $this->app_path.'install/sql/install.sql';
         if (file_exists($installSqlFilePath)) {
             $sql = file_get_contents($installSqlFilePath);
-            $sqlList = parseSql($sql, 0, ['ss_' => $dbConfig['prefix']]);
+            $sqlList = parseSql($sql, 0, ['yunj_' => $dbConfig['prefix']]);
             if ($sqlList) {
                 $sqlList = array_filter($sqlList);
                 foreach ($sqlList as $v) {
