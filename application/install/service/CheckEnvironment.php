@@ -117,6 +117,12 @@ class CheckEnvironment extends Common{
                 'current' => null,
                 'pass' => true
             ],
+            'redis'=>[
+                'title'=>'redis',
+                'demand' => '模块',
+                'current' => null,
+                'pass' => true
+            ],
             'xml'=>[
                 'title'=>'xml',
                 'demand' => '函数',
