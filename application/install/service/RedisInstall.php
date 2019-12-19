@@ -128,7 +128,7 @@ INFO;
         file_put_contents($this->config_path.'cache.php', $code);
         // 判断写入是否成功
         $cacheConfig = include $this->config_path.'cache.php';
-        if (empty($cacheConfig['type']) || $cacheConfig['type'] != 'redis') {
+        if (isset($cacheConfig['redis']) || $cacheConfig['redis']['type'] != 'redis') {
             $this->output('99999','[config/cache.php]缓存配置写入失败！');
         }
     }
