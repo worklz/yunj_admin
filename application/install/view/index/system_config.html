@@ -6,57 +6,86 @@
 <body>
 {include file="public/header" /}
 <div class="install-box">
-    <form class="layui-form layui-form-pane" data-data='{"install_check_pass":"{$Think.session.install_check_pass}","db_install_url":"{:url(\"dbInstall\")}"}'>
+    <form class="layui-form layui-form-pane" data-data='{"environment_pass":{:installPassStatus("environment")},"redis_install_url":"{:url(\"redisInstall\")}"}'>
         <fieldset class="layui-elem-field layui-field-title">
-            <legend>第一步：数据库配置</legend>
+            <legend>第一步：Redis配置</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Redis主机</label>
+            <div class="layui-input-inline w200">
+                <input type="text" class="layui-input" name="redis_host" lay-verify="required" value="{$redis_data.host|default='127.0.0.1'}">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>Redis主机地址，一般为127.0.0.1</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Redis端口</label>
+            <div class="layui-input-inline w200">
+                <input type="text" class="layui-input" name="redis_port" lay-verify="required" value="{$redis_data.port|default='6379'}">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>Redis端口，一般为6379</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Redis密码</label>
+            <div class="layui-input-inline w200">
+                <input type="password" class="layui-input" name="redis_password" value="{$redis_data.password|default=''}">
+            </div>
+            <div class="layui-form-mid layui-word-aux"></div>
+        </div>
+        <div class="layui-form-item">
+            <button type="button" class="layui-btn fl" style="margin-left:120px;" lay-submit lay-filter="redisInstall">测试Redis连接</button>
+        </div>
+    </form>
+    <form class="layui-form layui-form-pane" data-data='{"environment_pass":{:installPassStatus("environment")},"redis_pass":{:installPassStatus("redis")},"db_install_url":"{:url(\"dbInstall\")}"}'>
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>第二步：数据库配置</legend>
         </fieldset>
         <div class="layui-form-item">
             <label class="layui-form-label">服务器地址</label>
             <div class="layui-input-inline w200">
-                <input type="text" class="layui-input" name="hostname" lay-verify="required" value="127.0.0.1">
+                <input type="text" class="layui-input" name="hostname" lay-verify="required" value="{$db_data.hostname|default='127.0.0.1'}">
             </div>
             <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>数据库服务器地址，一般为127.0.0.1</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">数据库端口</label>
             <div class="layui-input-inline w200">
-                <input type="text" class="layui-input" name="hostport" lay-verify="required" value="3306">
+                <input type="text" class="layui-input" name="hostport" lay-verify="required" value="{$db_data.hostport|default='3306'}">
             </div>
             <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>系统数据库端口，一般为3306</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">数据库名称</label>
             <div class="layui-input-inline w200">
-                <input type="text" class="layui-input" name="database" lay-verify="alpha_">
+                <input type="text" class="layui-input" name="database" lay-verify="alpha_" value="{$db_data.database|default=''}">
             </div>
             <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>系统数据库名,必须由字母/数字/下划线组合</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">数据库账号</label>
             <div class="layui-input-inline w200">
-                <input type="text" class="layui-input" name="username" lay-verify="required">
+                <input type="text" class="layui-input" name="username" lay-verify="required" value="{$db_data.username|default=''}">
             </div>
             <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>连接数据库的用户名</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">数据库密码</label>
             <div class="layui-input-inline w200">
-                <input type="password" class="layui-input" name="password" lay-verify="required">
+                <input type="password" class="layui-input" name="password" lay-verify="required" value="{$db_data.password|default=''}">
             </div>
             <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>连接数据库的密码</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">数据库前缀</label>
             <div class="layui-input-inline w200">
-                <input type="text" class="layui-input" name="prefix" lay-verify="required_" value="yunj_">
+                <input type="text" class="layui-input" name="prefix" lay-verify="required_" value="{$db_data.prefix|default='yunj_'}">
             </div>
             <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>建议使用默认,末尾字符必须为 '_'</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">覆盖数据库</label>
             <div class="layui-input-inline w200">
-                <input type="radio" name="cover" value="1" title="覆盖">
-                <input type="radio" name="cover" value="0" title="不覆盖" checked>
+                <input type="radio" name="cover" value="1" title="覆盖" checked>
+                <input type="radio" name="cover" value="0" title="不覆盖">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
@@ -64,31 +93,10 @@
             <button type="button" class="layui-btn fl" style="margin-left:120px;" lay-submit lay-filter="dbInstall">测试数据库连接</button>
         </div>
     </form>
-    <form class="layui-form layui-form-pane" data-data='{"install_check_pass":"{$Think.session.install_check_pass}","now_install_url":"{:url(\"nowInstall\")}"}'>
+    <form class="layui-form layui-form-pane" data-data='{"environment_pass":{:installPassStatus("environment")},"redis_pass":{:installPassStatus("redis")},"db_pass":{:installPassStatus("db")},"now_install_url":"{:url(\"nowInstall\")}"}'>
         <fieldset class="layui-elem-field layui-field-title">
-            <legend>第二步：账号配置</legend>
+            <legend>第三步：管理员账号配置</legend>
         </fieldset>
-        <div class="layui-form-item">
-            <label class="layui-form-label">Redis主机</label>
-            <div class="layui-input-inline w200">
-                <input type="text" class="layui-input" name="redis_host" lay-verify="required" value="127.0.0.1">
-            </div>
-            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>Redis主机地址，一般为127.0.0.1</div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">Redis端口</label>
-            <div class="layui-input-inline w200">
-                <input type="text" class="layui-input" name="redis_port" lay-verify="required" value="6379">
-            </div>
-            <div class="layui-form-mid layui-word-aux"><span class="required">必填！</span>Redis端口，一般为6379</div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">Redis密码</label>
-            <div class="layui-input-inline w200">
-                <input type="password" class="layui-input" name="redis_password">
-            </div>
-            <div class="layui-form-mid layui-word-aux"></div>
-        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">管理员账号</label>
             <div class="layui-input-inline w200">

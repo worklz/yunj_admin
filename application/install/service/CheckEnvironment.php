@@ -2,11 +2,10 @@
 namespace app\install\service;
 
 class CheckEnvironment extends Common{
-    public $install_check_pass;
 
     public function __construct() {
         parent::__construct();
-        $this->install_check_pass = true;
+        $this->install_pass_key='environment';
     }
 
     public function checkData() {
@@ -64,14 +63,14 @@ class CheckEnvironment extends Common{
         $items['php']['current'] = PHP_VERSION;
         if ($items['php']['current'] < 5.6) {
             $items['php']['pass'] = false;
-            $this->install_check_pass = false;
+            $this->install_pass = false;
         }
         //gd
         $tmp = function_exists('gd_info') ? gd_info() : [];
         if (empty($tmp['GD Version'])) {
             $items['gd']['current'] = '未安装';
             $items['gd']['pass'] = false;
-            $this->install_check_pass = false;
+            $this->install_pass = false;
         } else {
             $items['gd']['current'] = $tmp['GD Version'];
         }
@@ -154,7 +153,7 @@ class CheckEnvironment extends Common{
                 ||('函数'==$v['demand'] && !function_exists($v['title']))){
                 $v['current']='不支持';
                 $v['pass']=false;
-                $this->install_check_pass=false;
+                $this->install_pass=false;
             }else{
                 $v['current']='支持';
             }
@@ -200,14 +199,14 @@ class CheckEnvironment extends Common{
                         $v['current'] = '不存在';
                     }
                     $v['pass']=false;
-                    $this->install_check_pass=false;
+                    $this->install_pass=false;
                 }
             } else {
                 // 文件
                 if(!is_writable($v['path'])) {
                     $v['current'] = '不可写';
                     $v['pass']=false;
-                    $this->install_check_pass=false;
+                    $this->install_pass=false;
                 }
             }
         }

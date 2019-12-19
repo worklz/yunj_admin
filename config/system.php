@@ -6,7 +6,7 @@ return [
     //站点名称
     'site_name' => '云静Admin',
     //版本号
-    'version' => '1.0.2',
+    'version' => '1.0.21',
     //作者
     'author' => 'Uncle-L',
     //作者站点

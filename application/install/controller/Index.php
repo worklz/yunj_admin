@@ -6,6 +6,7 @@ use think\facade\Env;
 use app\install\validate\Install as InstallValidate;
 use app\install\service\DbInstall as DbInstallService;
 use app\install\service\NowInstall as NowInstallService;
+use app\install\service\RedisInstall as RedisInstallService;
 use app\install\service\CheckEnvironment as CheckEnvironmentService;
 
 class Index extends Controller {
@@ -18,6 +19,8 @@ class Index extends Controller {
      * @return mixed
      */
     public function index() {
+        //安装初始化
+        installInit();
         return $this->fetch();
     }
 
@@ -30,7 +33,8 @@ class Index extends Controller {
     public function checkEnvironment() {
         $service = new CheckEnvironmentService();
         $data=$service->checkData();
-        session('install_check_pass',$service->install_check_pass);
+        //设置当前步骤校验通过状态
+        setInstallPassStatus('environment',$service->install_pass);
         $this->assign(['data'=>$data]);
         return $this->fetch();
     }
@@ -42,25 +46,61 @@ class Index extends Controller {
      * Time: 16:11
      */
     public function systemConfig(){
-        $install_check_pass=session('install_check_pass');
-        if(!$install_check_pass){
+        $environment_pass=installPassStatus('environment');
+        if(!$environment_pass){
             $url=url('errorView')."?msg=环境检测未通过，不能进行安装操作！&url=".urlencode(url('checkEnvironment'));
             $this->redirect($url);
         }
+        //判断redis是否连接成功
+        $redis_pass=installPassStatus('redis');
+        $redisData=$redis_pass?config('session'):[];
+        //判断数据库是否连接成功
+        $db_pass=installPassStatus('db');
+        $dbData=$db_pass?config('database'):[];
+        $this->assign([
+            'redis_data'=>$redisData,
+            'db_data'=>$dbData
+        ]);
         return $this->fetch();
     }
 
     /**
-     * Description: 数据库安装 - 第四步
+     * Description: redis连接 - 第四步
+     * Author: Uncle-L
+     * Date: 2019/10/11
+     * Time: 16:47
+     */
+    public function redisInstall(){
+        if(request()->isAjax()){
+            $environment_pass=installPassStatus('environment');
+            if(!$environment_pass){
+                returnJson(['code'=>'99999','msg'=>'环境检测未通过，不能进行Redis连接操作！']);
+            }
+            $data=input('post.');
+            $InstallValidate=new InstallValidate();
+            $data=$InstallValidate->checkAll($data,'redis_install');
+            //执行
+            $service=new RedisInstallService();
+            $service->execution($data);
+        }
+        returnJson(['code'=>'99999','msg'=>'非法访问！']);
+    }
+
+    /**
+     * Description: 数据库安装 - 第五步
      * Author: Uncle-L
      * Date: 2019/10/11
      * Time: 16:47
      */
     public function dbInstall(){
         if(request()->isAjax()){
-            $install_check_pass=session('install_check_pass');
-            if(!$install_check_pass){
+            $environment_pass=installPassStatus('environment');
+            $redis_pass=installPassStatus('redis');
+            if(!$environment_pass){
                 returnJson(['code'=>'99999','msg'=>'环境检测未通过，不能进行数据库连接操作！']);
+            }
+            if(!$redis_pass){
+                returnJson(['code'=>'99999','msg'=>'请先通过测试Redis连接！']);
             }
             $data=input('post.');
             $InstallValidate=new InstallValidate();
@@ -73,16 +113,24 @@ class Index extends Controller {
     }
 
     /**
-     * Description: 立即安装 - 第五步
+     * Description: 立即安装 - 第六步
      * Author: Uncle-L
      * Date: 2019/10/12
      * Time: 16:03
      */
     public function nowInstall(){
         if(request()->isAjax()){
-            $install_db_pass=session('install_db_pass');
-            if(!$install_db_pass){
-                //returnJson(['code'=>'99999','msg'=>'请先通过测试数据库连接！']);
+            $environment_pass=installPassStatus('environment');
+            $redis_pass=installPassStatus('redis');
+            $db_pass=installPassStatus('db');
+            if(!$environment_pass){
+                returnJson(['code'=>'99999','msg'=>'环境检测未通过！']);
+            }
+            if(!$redis_pass){
+                returnJson(['code'=>'99999','msg'=>'请先通过测试Redis连接！']);
+            }
+            if(!$db_pass){
+                returnJson(['code'=>'99999','msg'=>'请先通过测试数据库连接！']);
             }
             $data=input('post.');
             $InstallValidate=new InstallValidate();
@@ -99,7 +147,7 @@ class Index extends Controller {
      * Author: Uncle-L
      * Date: 2019/10/9
      * Time: 10:31
-     * @return mixed|void
+     * @return mixed
      */
     public function successView(){
         $install_lock_path=Env::get('root_path').'public/install.lock';

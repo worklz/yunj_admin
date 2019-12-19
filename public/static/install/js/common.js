@@ -134,14 +134,46 @@ layui.use(['jquery','layer','element', 'form'],function(){
             }
         }
     });
+
+    //测试redis连接
+    form.on('submit(redisInstall)', function(data){
+        layer.confirm(`确认现在连接吗？`, {icon: 0, title: '提示'}, function () {
+            let formEl=data.form;
+            let formData=$(formEl).data('data');
+            if(!formData.environment_pass){
+                errorAlert('环境检测未通过，不能进行测试连接操作！');
+                return false;
+            }
+            request({
+                type:'post',
+                url:formData.redis_install_url,
+                data:data.field,
+                loading_txt:'测试连接中...',
+                action_txt:'测试连接',
+                successCallback:function (res) {
+                    successAlert(res.msg);
+                },
+                errorCallback:function (res) {
+                    errorAlert(res.msg,function (index, layero) {
+                        layer.close(index);
+                    });
+                }
+            });
+        });
+        return false;
+    });
     
     //测试数据库连接
     form.on('submit(dbInstall)', function(data){
         layer.confirm(`确认现在连接吗？`, {icon: 0, title: '提示'}, function () {
             let formEl=data.form;
             let formData=$(formEl).data('data');
-            if(!formData.install_check_pass){
-                errorAlert('环境检测未通过，不能进行安装操作！');
+            if(!formData.environment_pass){
+                errorAlert('环境检测未通过，不能进行测试连接操作！');
+                return false;
+            }
+            if(!formData.redis_pass){
+                errorAlert('Redis测试连接未通过，不能进行测试连接操作！');
                 return false;
             }
             request({
@@ -168,8 +200,16 @@ layui.use(['jquery','layer','element', 'form'],function(){
         layer.confirm(`确认要立即安装吗？`, {icon: 0, title: '提示'}, function () {
             let formEl=data.form;
             let formData=$(formEl).data('data');
-            if(!formData.install_check_pass){
-                errorAlert('环境检测未通过，不能进行安装操作！');
+            if(!formData.environment_pass){
+                errorAlert('环境检测未通过，不能执行安装操作！');
+                return false;
+            }
+            if(!formData.redis_pass){
+                errorAlert('Redis测试连接未通过，不能执行安装操作！');
+                return false;
+            }
+            if(!formData.db_pass){
+                errorAlert('数据库测试连接未通过，不能执行安装操作！');
                 return false;
             }
             request({

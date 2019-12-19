@@ -4,11 +4,10 @@ namespace app\install\service;
 use think\Db;
 
 class DbInstall extends Common {
-    public $install_db_pass;
 
     public function __construct() {
         parent::__construct();
-        $this->install_db_pass = true;
+        $this->install_pass_key='db';
     }
 
     /**
@@ -47,20 +46,20 @@ class DbInstall extends Common {
         if (!$cover) {
             $check = $dbConnect->execute("SELECT * FROM information_schema.schemata WHERE schema_name='{$database}'");
             if ($check) {
-                returnJson(['code'=>'99999','msg'=>'该数据库已存在，如需覆盖请选择覆盖数据库！']);
+                $this->output('99999','该数据库已存在，如需覆盖请选择覆盖数据库！');
             }
         }
 
         // 创建数据库
         if (!$dbConnect->execute("CREATE DATABASE IF NOT EXISTS `{$database}` DEFAULT CHARACTER SET utf8")) {
-            returnJson(['code'=>'99999','msg'=>$dbConnect->getError()]);
+            $this->output('99999',$dbConnect->getError());
         }
         $data['database'] = $database;
 
         // 生成数据库配置文件
         $this->generateDbConfigFile($data);
 
-        returnJson(['code'=>'00000','msg'=>'数据库连接成功']);
+        $this->output('00000','数据库连接成功！');
     }
 
     /**
@@ -141,23 +140,7 @@ INFO;
         // 判断写入是否成功
         $dbConfig = include $this->config_path.'database.php';
         if (empty($dbConfig['database']) || $dbConfig['database'] != $data['database']) {
-            returnJson(['code'=>'99999','msg'=>'[config/database.php]数据库配置写入失败！']);
+            $this->output('99999','[config/database.php]数据库配置写入失败！！');
         }
-    }
-
-    /**
-     * Description: 输出
-     * Author: Uncle-L
-     * Date: 2019/10/12
-     * Time: 15:51
-     * @param string $code
-     * @param $msg
-     */
-    private function output($code='00000',$msg){
-        if($code!='00000'){
-            $this->install_db_pass = false;
-        }
-        session('install_db_pass',$this->install_db_pass);
-        returnJson(['code'=>$code,'msg'=>$msg]);
     }
 }
