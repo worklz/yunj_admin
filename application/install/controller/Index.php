@@ -53,10 +53,10 @@ class Index extends Controller {
         }
         //判断redis是否连接成功
         $redis_pass=installPassStatus('redis');
-        $redisData=$redis_pass?config('session'):[];
+        $redisData=$redis_pass?config('session.'):[];
         //判断数据库是否连接成功
         $db_pass=installPassStatus('db');
-        $dbData=$db_pass?config('database'):[];
+        $dbData=$db_pass?config('database.'):[];
         $this->assign([
             'redis_data'=>$redisData,
             'db_data'=>$dbData
