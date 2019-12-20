@@ -35,8 +35,6 @@ class Index extends Controller {
         $data=$service->checkData();
         //设置当前步骤校验通过状态
         setInstallPassStatus('environment',$service->install_pass);
-        dump($service->install_pass);
-        dump(installPassStatus('environment'));
         $this->assign(['data'=>$data]);
         return $this->fetch();
     }
