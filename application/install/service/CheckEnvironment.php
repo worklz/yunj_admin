@@ -171,10 +171,26 @@ class CheckEnvironment extends Common{
      */
     private function checkDir() {
         $items = [
-            'config'=>[
-                'title'=>'config',
-                'type'=>'dir',
-                'path'=>$this->root_path.'config',
+            'config/cache.php'=>[
+                'title'=>'config/cache.php',
+                'type'=>'file',
+                'path'=>$this->root_path.'config/cache.php',
+                'demand' => '读/写',
+                'current' => '读/写',
+                'pass' => true
+            ],
+            'config/database.php'=>[
+                'title'=>'config/database.php',
+                'type'=>'file',
+                'path'=>$this->root_path.'config/database.php',
+                'demand' => '读/写',
+                'current' => '读/写',
+                'pass' => true
+            ],
+            'config/session.php'=>[
+                'title'=>'config/session.php',
+                'type'=>'file',
+                'path'=>$this->root_path.'config/session.php',
                 'demand' => '读/写',
                 'current' => '读/写',
                 'pass' => true
