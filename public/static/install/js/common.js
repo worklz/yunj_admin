@@ -101,7 +101,7 @@ layui.use(['jquery','layer','element', 'form'],function(){
     //进入系统配置
     $(".enter-system-config").click(function(){
         let data=$(this).data('data');
-        if(data.install_check_pass){
+        if(data.environment_pass){
             location.href=data.url;
         }else {
             errorAlert('环境检测未通过，不能进行安装操作！');
