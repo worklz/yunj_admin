@@ -186,6 +186,14 @@ class CheckEnvironment extends Common{
                 'demand' => '读/写',
                 'current' => '读/写',
                 'pass' => true
+            ],
+            'runtime'=>[
+                'title'=>'runtime',
+                'type'=>'dir',
+                'path'=>$this->root_path.'runtime',
+                'demand' => '读/写',
+                'current' => '读/写',
+                'pass' => true
             ]
         ];
 
