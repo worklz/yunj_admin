@@ -151,6 +151,16 @@ layui.use(['jquery','layer','element', 'form'],function(){
                 loading_txt:'测试连接中...',
                 action_txt:'测试连接',
                 successCallback:function (res) {
+                    let dbFormData=$('.db-form').data('data');
+                    let accountFormData=$('.account-form').data('data');
+                    let dbData=JSON.parse(dbFormData);
+                    let accountData=JSON.parse(accountFormData);
+                    dbData.redis_pass=1;
+                    accountData.redis_pass=1;
+                    dbFormData=JSON.stringify(dbData);
+                    accountFormData=JSON.stringify(accountData);
+                    $('.db-form').attr('data-data',dbFormData);
+                    $('.account-form').attr('data-data',accountFormData);
                     successAlert(res.msg);
                 },
                 errorCallback:function (res) {
@@ -183,6 +193,11 @@ layui.use(['jquery','layer','element', 'form'],function(){
                 loading_txt:'测试连接中...',
                 action_txt:'测试连接',
                 successCallback:function (res) {
+                    let accountFormData=$('.account-form').data('data');
+                    let accountData=JSON.parse(accountFormData);
+                    accountData.db_pass=1;
+                    accountFormData=JSON.stringify(accountData);
+                    $('.account-form').attr('data-data',accountFormData);
                     successAlert(res.msg);
                 },
                 errorCallback:function (res) {

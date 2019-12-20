@@ -6,7 +6,7 @@
 <body>
 {include file="public/header" /}
 <div class="install-box">
-    <form class="layui-form layui-form-pane" data-data='{"environment_pass":{:installPassStatus("environment")},"redis_install_url":"{:url(\"redisInstall\")}"}'>
+    <form class="layui-form layui-form-pane redis-form" data-data='{"environment_pass":{:installPassStatus("environment")},"redis_install_url":"{:url(\"redisInstall\")}"}'>
         <fieldset class="layui-elem-field layui-field-title">
             <legend>第一步：Redis配置</legend>
         </fieldset>
@@ -35,7 +35,7 @@
             <button type="button" class="layui-btn fl" style="margin-left:120px;" lay-submit lay-filter="redisInstall">测试Redis连接</button>
         </div>
     </form>
-    <form class="layui-form layui-form-pane" data-data='{"environment_pass":{:installPassStatus("environment")},"redis_pass":{:installPassStatus("redis")},"db_install_url":"{:url(\"dbInstall\")}"}'>
+    <form class="layui-form layui-form-pane db-form" data-data='{"environment_pass":{:installPassStatus("environment")},"redis_pass":{:installPassStatus("redis")},"db_install_url":"{:url(\"dbInstall\")}"}'>
         <fieldset class="layui-elem-field layui-field-title">
             <legend>第二步：数据库配置</legend>
         </fieldset>
@@ -93,7 +93,7 @@
             <button type="button" class="layui-btn fl" style="margin-left:120px;" lay-submit lay-filter="dbInstall">测试数据库连接</button>
         </div>
     </form>
-    <form class="layui-form layui-form-pane" data-data='{"environment_pass":{:installPassStatus("environment")},"redis_pass":{:installPassStatus("redis")},"db_pass":{:installPassStatus("db")},"now_install_url":"{:url(\"nowInstall\")}"}'>
+    <form class="layui-form layui-form-pane account-form" data-data='{"environment_pass":{:installPassStatus("environment")},"redis_pass":{:installPassStatus("redis")},"db_pass":{:installPassStatus("db")},"now_install_url":"{:url(\"nowInstall\")}"}'>
         <fieldset class="layui-elem-field layui-field-title">
             <legend>第三步：管理员账号配置</legend>
         </fieldset>
