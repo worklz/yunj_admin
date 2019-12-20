@@ -11,6 +11,10 @@
  */
 function installInit(){
     $installPassStatusKey='install_pass_status';
+    //判断是否已有
+    $installPassStatus=cache($installPassStatusKey);
+    if($installPassStatus) return;
+    //没有则初始化
     $installPassStatus=[
         'environment'=>false,
         'redis'=>false,
