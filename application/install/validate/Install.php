@@ -40,7 +40,7 @@ class Install extends Common {
     protected $scene = [
         'redis_install'=>['redis_host','redis_port','redis_password'],
         'db_install'=>['hostname','hostport','database','username','password','prefix','cover'],
-        'now_install'=>['redis_host','redis_port','redis_password','admin_username','admin_password'],
+        'now_install'=>['admin_username','admin_password']
     ];
 
     /**
