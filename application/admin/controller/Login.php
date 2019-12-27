@@ -20,7 +20,6 @@ class Login extends Controller{
             $this->assign([
                 'title'=>'登录',
                 'username'=>cookie('username'),
-                'password'=>cookie('password'),
                 'remember'=>cookie('remember')
             ]);
             return $this->fetch();
@@ -57,7 +56,6 @@ class Login extends Controller{
         //处理cookie
         if(isset($data['remember'])){
             cookie('username', $data['username']);
-            cookie('password', $data['password']);
             cookie('remember', $data['remember']);
         }
         //不同角色对应不同控制器，获取对应链接
