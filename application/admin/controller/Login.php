@@ -3,7 +3,6 @@ namespace app\admin\controller;
 
 use think\Controller;
 use app\admin\validate\Login as LoginValidate;
-use think\facade\Request;
 
 class Login extends Controller{
     /**
