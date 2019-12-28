@@ -17,9 +17,7 @@ class Login extends Controller{
             $this->loginHandle();
         }else{
             $this->assign([
-                'title'=>'登录',
-                'username'=>cookie('username'),
-                'remember'=>cookie('remember')
+                'title'=>'登录'
             ]);
             return $this->fetch();
         }
@@ -52,11 +50,6 @@ class Login extends Controller{
         session('sign',generateLoginSign($signData));
         session('menu_ids',$data['menu_ids']);
         session('action_time',time());
-        //处理cookie
-        if(isset($data['remember'])){
-            cookie('username', $data['username']);
-            cookie('remember', $data['remember']);
-        }
         //不同角色对应不同控制器，获取对应链接
         $controller='Error';
         switch ($data['role_alias']){

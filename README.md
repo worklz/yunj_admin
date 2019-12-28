@@ -48,4 +48,4 @@
     * 安装时判断是否存在redis扩展，增加redis信息填写步骤
     * 缓存驱动方式由file改为redis
     * session由文件存储改为redis存储（减轻文件I/O）
-    * 修改cookie保存登录用户状态信息
+    * 修改cookie保存登录用户状态信息（去掉记住我）
