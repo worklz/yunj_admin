@@ -42,14 +42,17 @@ class Login extends Controller{
             'create_time'=>$data['create_time']
         ];
         //处理session
-        session('uid',$data['uid']);
-        session('username',$data['username']);
-        session('nickname',$data['nickname']);
-        session('role_name',$data['role_name']);
-        session('role_alias',$data['role_alias']);
-        session('sign',generateLoginSign($signData));
-        session('menu_ids',$data['menu_ids']);
-        session('action_time',time());
+        $loginUserData=[
+            'uid'=>$data['uid'],
+            'username'=>$data['username'],
+            'nickname'=>$data['nickname'],
+            'role_name'=>$data['role_name'],
+            'role_alias'=>$data['role_alias'],
+            'sign'=>generateLoginSign($signData),
+            'menu_ids'=>$data['menu_ids'],
+            'action_time'=>time()
+        ];
+        setUserData($loginUserData);
         //不同角色对应不同控制器，获取对应链接
         $controller='Error';
         switch ($data['role_alias']){
@@ -73,7 +76,7 @@ class Login extends Controller{
      * Time: 22:36
      */
     public function change(){
-        session(null);
+        setUserData(null);
         $this->redirect('Login/index');
     }
 
@@ -84,7 +87,7 @@ class Login extends Controller{
      * Time: 19:49
      */
     public function logout(){
-        session(null);
+        setUserData(null);
         $this->redirect('Error/index',['enum'=>'LOGOUT']);
     }
 }

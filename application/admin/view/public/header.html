@@ -30,7 +30,7 @@
     </ul>
     <ul class="layui-nav right">
         <li class="layui-nav-item">
-            <a href="javascript:void(0);" style="padding-left: 0;">你好！{$Think.session.role_name}：{$Think.session.nickname}</a>
+            <a href="javascript:void(0);" style="padding-left: 0;">你好！{:getUserData('role_name')}：{:getUserData('nickname')}</a>
             <dl class="layui-nav-child">
                 <dd>
                     <a href="javascript:void(0);" onclick='openPopup({"title":"个人信息","content":"{:url(\"User/info\")}"})'>个人信息</a>

@@ -40,8 +40,8 @@ class Entrance extends Controller{
      */
     private static function checkLogin(){
         //获取签名数据
-        $uid=(int)session('uid');
-        $sign=session('sign');
+        $uid=(int)getUserData('uid');
+        $sign=getUserData('sign');
         if(!$uid||!$sign){
             return self::errorRedirect('Error/index',['enum'=>'OVERDUE']);
         }
@@ -72,7 +72,7 @@ class Entrance extends Controller{
      * Time: 18:25
      */
     private static function checkActionTimeout(){
-        $lastActionTime=session('action_time');
+        $lastActionTime=getUserData('action_time');
         if(!$lastActionTime){
             return self::errorRedirect('Error/index',['enum'=>'TIMEOUT']);
         }
@@ -84,7 +84,7 @@ class Entrance extends Controller{
             return self::errorRedirect('Error/index',['enum'=>'TIMEOUT']);
         }
         //更新操作时间
-        session('action_time',time());
+        setUserData('action_time',time());
         return true;
     }
 

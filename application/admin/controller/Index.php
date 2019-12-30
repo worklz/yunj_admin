@@ -10,13 +10,14 @@ class Index extends Common {
     protected function setIndexAssignData(){
         parent::setIndexAssignData();
         //获取当前用户所有显示的菜单信息
-        $menu_ids=session('menu_ids');
+        $menu_ids=getUserData('menu_ids');
         $fieldArr=['id','pid','name','code','icon'];
         $whereArr=[
             ['status','neq',0],
             ['is_show','neq',0],
         ];
-        if(session('uid')!=1){
+        $uid=getUserData('uid');
+        if($uid!=1){
             $whereArr[]=['id','in',$menu_ids];
         }
         $menus=(new MenuModel())->getRows($fieldArr,$whereArr,['sort'=>'asc']);

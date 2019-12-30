@@ -42,61 +42,6 @@ function randomStr($length=6){
 }
 
 /**
- * Description: 验证用户是否有当前控制器/方法的权限
- * Author: Uncle-L
- * Date: 2019/8/23
- * Time: 9:56
- * @param $code [控制器/方法名]
- * @return bool
- */
-function checkAuth($code){
-    if(session('uid')==1) return true;
-    //不需要验证的控制器/方法名
-    $no_check_controller_action=sconfig('base.no_check_controller_action');
-    if(in_array($code,$no_check_controller_action)) return true;
-    //根据获取当前的控制器方法名，获取当前对应菜单的id
-    $MenuModel=new \app\common\model\Menu();
-    $whereArr=[
-        ['status','neq',0],
-        ['code','eq',$code]
-    ];
-    //正式环境中应设置缓存
-    $menuID=$MenuModel->where($whereArr)->value('id');
-    if(!$menuID) return false;
-    $menu_ids=session('menu_ids');
-    $menu_ids=is_array($menu_ids)?$menu_ids:explode(',',$menu_ids);
-    if(!in_array($menuID,$menu_ids)){
-        return false;
-    }
-    return true;
-}
-
-/**
- * Description: 系统日志记录
- * Author: Uncle-L
- * Date: 2019/8/27
- * Time: 18:18
- * @param $description [日志简述]
- * @return bool
- */
-function systemLog($description){
-    if(!session('uid')) return false;
-    $request_content=[
-        'url'=>request()->url(),
-        'type'=>request()->method(),
-        'params'=>input('param.')
-    ];
-    $data=[
-        'uid'=>session('uid'),
-        'ip'=>getIP(),
-        'description'=>$description,
-        'request_content'=>json_encode($request_content,JSON_UNESCAPED_SLASHES),
-    ];
-    $res=model('Log')->addRow($data);
-    return $res?true:false;
-}
-
-/**
  * Description: 获取客户端ip
  * Author: Uncle-L
  * Date: 2019/8/27

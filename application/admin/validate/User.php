@@ -110,7 +110,8 @@ class User extends Common {
             $data['login_salt']=$login_salt;
         }
         //不是超级管理员需校验密码
-        if(session('uid')!=1){
+        $uid=getUserData('uid');
+        if($uid!=1){
             if(!$_data['password_check']){
                 returnJson(['code'=>'99999','msg'=>'请输入校验密码']);
             }

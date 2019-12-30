@@ -9,8 +9,8 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
-                    <blockquote class="layui-elem-quote">欢迎{$Think.session.role_name}：
-                        <span class="x-red">{$Think.session.nickname}</span>！当前时间:{$current_time}
+                    <blockquote class="layui-elem-quote">欢迎{:getUserData('role_name')}：
+                        <span class="x-red">{:getUserData('nickname')}</span>！当前时间:{$current_time}
                     </blockquote>
                 </div>
             </div>

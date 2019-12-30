@@ -87,7 +87,7 @@ class User extends Common {
         $fieldArr=['u.username','u.nickname','u.email','u.mobile','u.create_time','u.update_time','r.name as role_name'];
         $whereArr=[
             ['u.status','eq',1],
-            ['u.id','eq',session('uid')]
+            ['u.id','eq',getUserData('uid')]
         ];
         $info=$this->model->getRow($fieldArr,$whereArr);
         $this->assign('info',$info);

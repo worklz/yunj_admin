@@ -16,7 +16,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>校验密码</label>
             <div class="layui-input-inline">
-                <input type="password" name="password_check" lay-verify="{if $Think.session.uid!=1}required{/if}" autocomplete="off" class="layui-input">
+                <input type="password" name="password_check" lay-verify="{if getUserData('uid')!=1}required{/if}" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">此项为登录密码，校验是否本人，超级管理员可省略此步骤</div>
         </div>
