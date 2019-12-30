@@ -42,6 +42,31 @@ function randomStr($length=6){
 }
 
 /**
+ * Description: 系统日志记录
+ * Author: Uncle-L
+ * Date: 2019/8/27
+ * Time: 18:18
+ * @param $description [日志简述]
+ * @return bool
+ */
+function systemLog($description){
+    if(!getUserData('uid')) return false;
+    $request_content=[
+        'url'=>request()->url(),
+        'type'=>request()->method(),
+        'params'=>input('param.')
+    ];
+    $data=[
+        'uid'=>getUserData('uid'),
+        'ip'=>getIP(),
+        'description'=>$description,
+        'request_content'=>json_encode($request_content,JSON_UNESCAPED_SLASHES),
+    ];
+    $res=model('Log')->addRow($data);
+    return $res?true:false;
+}
+
+/**
  * Description: 获取客户端ip
  * Author: Uncle-L
  * Date: 2019/8/27
